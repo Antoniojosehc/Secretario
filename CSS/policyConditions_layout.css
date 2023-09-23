@@ -38,6 +38,10 @@ body {
     color: #1a3458;
 }
 
+h1 {
+    margin-bottom: 10px;
+}
+
 h2 {
     margin-top: 20px;
     margin-bottom: 10px;
