@@ -87,11 +87,10 @@ body {
     color: #1a3458
 }
 
-
-
-
-
-
+.menu-content a:hover {
+    text-decoration: underline;
+    color: #446da7;
+}
 
 footer {
     background-color: #EEEEEE;

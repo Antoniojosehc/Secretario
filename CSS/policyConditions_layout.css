@@ -34,8 +34,11 @@ body {
     margin: auto;
     margin-top: 50px;
     margin-bottom: 80px;
+    padding: 50px 50px;
     width: 1000px;
     color: #1a3458;
+    background-color: white;
+    box-shadow: 2px 2px 5px #1a3458;
 }
 
 h1 {
