@@ -33,6 +33,7 @@ body {
 .main-menu {
     display: flex;
     justify-content: space-around;
+    align-items: flex-start;
     margin: auto;
     margin-top: 70px;
     width: 90%;
@@ -41,7 +42,8 @@ body {
 .menu-card {
     display: inline-block;
     width: 30%;
-    height: auto;
+    height: auto;    
+    box-shadow: 2px 2px 5px #274d83;
 }
 
 .menu-bar {
