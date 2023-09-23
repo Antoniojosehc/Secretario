@@ -1,11 +1,11 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 body {
-    background-color: #CBDEF8;
+    background-image: url(../images/Background.png);
 }
 
 .form {
@@ -67,8 +67,17 @@ h4 {
     margin-top: 20px;
 }
 
+.new-account {
+    color: white;
+}
+
+#account {
+    padding: 10px;
+}
+
 .account {
     padding: 10px;
+    text-decoration: none;
 }
 
 footer {
