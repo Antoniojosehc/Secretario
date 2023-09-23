@@ -14,7 +14,7 @@ body {
     margin: auto;
     margin-top: 70px;
     padding: 30px 40px;
-    border: 1px solid #E7E6E4;
+    box-shadow: 2px 2px 5px #1a3458;
 }
 
 .logo {
