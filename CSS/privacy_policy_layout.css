@@ -29,3 +29,29 @@ body {
     padding-left: 20px;
     color: white;
 }
+
+.content {
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 80px;
+    width: 1000px;
+    color: #1a3458;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: #EEEEEE;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer-container {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
