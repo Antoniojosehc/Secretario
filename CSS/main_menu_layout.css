@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0; 
+}
+
+body {
+    background-color: #CBDEF8;
+}
+
+.top-bar {
+    background-color: #274d83;
+    height: 50px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    background-image: url("../images/mini_Logo_placeholder.png");
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.header {
+    width: auto;
+    height: 50px;
+    display: inline-block;
+    position: absolute;
+    padding-top: 13px;
+    padding-left: 20px;
+    color: white;
+}
+
+.main-menu {
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    margin-top: 70px;
+    width: 90%;
+}
+
+.menu-card {
+    display: inline-block;
+    width: 30%;
+    height: auto;
+}
+
+.menu-bar {
+    background-color: #274d83;
+}
+
+.icon {
+    width: 70px;
+    height: 70px;
+    background-image: url("../images/Logo_placeholder.png");
+    display: inline-block;
+    margin: 20px 20px 20px 50px;
+}
+
+.menu-header {
+    width: auto;
+    height: 50px;
+    display: inline-block;    
+    position: absolute;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-left: 20px;
+    color: white;
+    font-size: 20px;
+}
+
+.menu-title {
+    padding: 10px;
+}
+
+.menu-content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: white;
+}
+.menu-content a {
+    display: block;
+    margin: 20px 50px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #1a3458
+}
+
+
+
+
+
+
+
+footer {
+    background-color: #EEEEEE;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer-container {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
