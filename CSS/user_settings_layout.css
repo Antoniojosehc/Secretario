@@ -8,6 +8,7 @@ body {
     background-color: #CBDEF8;
     margin: 0;
     overflow: hidden;
+    font-family: Arial, sans-serif;
 }
 
 .top-bar {
@@ -80,6 +81,10 @@ h1 {
     color: #fff;
     border: none;
     margin: 10px auto;
+}
+
+.button:hover {
+    background-color: #3562a0;
 }
 
 hr {
