@@ -15,9 +15,9 @@ body {
 }
 
 .logo {
-    width: 50px;
+    width: 60px;
     height: 50px;
-    background-image: url("../images/mini_Logo_placeholder.png");
+    background-image: url(../images/Secretario_minilogo.png);
     display: inline-block;
     margin-bottom: 20px;
 }

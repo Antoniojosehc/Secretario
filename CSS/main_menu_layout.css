@@ -14,9 +14,9 @@ body {
 }
 
 .logo {
-    width: 50px;
+    width: 60px;
     height: 50px;
-    background-image: url("../images/mini_Logo_placeholder.png");
+    background-image: url("../images/Secretario_minilogo.png");
     display: inline-block;
     margin-bottom: 20px;
 }
@@ -52,11 +52,22 @@ body {
 }
 
 .icon {
-    width: 70px;
+    width: 79px;
     height: 70px;
-    background-image: url("../images/Logo_placeholder.png");
     display: inline-block;
     margin: 20px 20px 20px 50px;
+}
+
+.pub-icon {
+    background-image: url("../images/Pub-icon.png");    
+}
+
+.form-icon {
+    background-image: url("../images/form-icon.png");
+}
+
+.meeting-icon {
+    background-image: url("../images/meeting-icon.png");
 }
 
 .menu-header {
