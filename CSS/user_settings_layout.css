@@ -39,7 +39,6 @@ body {
     width: 300px;
     height: 100vh;
     display: inline-block;
-    float: left;
     box-shadow: 2px -2px 5px black;
 }
 
