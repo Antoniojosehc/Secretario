@@ -11,6 +11,9 @@ body {
 .top-bar {
     background-image: url(../images/Background.png);
     height: 50px;
+    display: flex;    
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
@@ -18,17 +21,21 @@ body {
     height: 50px;
     background-image: url("../images/Secretario_minilogo.png");
     display: inline-block;
-    margin-bottom: 20px;
+    margin-right: 20px;
+    vertical-align: middle;
 }
 
 .header {
-    width: auto;
-    height: 50px;
     display: inline-block;
-    position: absolute;
-    padding-top: 13px;
-    padding-left: 20px;
     color: white;
+    align-self: center;
+}
+
+.settings {
+    text-decoration: none;
+    color: white;
+    align-self: center;
+    margin-right: 20px;
 }
 
 .main-menu {
