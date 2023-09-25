@@ -21,10 +21,9 @@
         <input class="field" type="password" name="contrasena">
         <input type="checkbox" id="keepLoggedIn">
         <label for="keepLoggedIn">No cerrar sesión</label>
-        <input class="button" type="submit" value="Iniciar sesión">        
+        <input id="login-button" class="button" type="submit" value="Iniciar sesión">        
         <a class="link" href="password_reset.html">¿Ha olvidado su contraseña?</a>
-    </section>
-    
+    </section>    
     <div class="outside">
         <h4 class="new-account">¿Necesita una cuenta?</h4>
         <button id="account"><a href="new_account.html" class="account">Crear una nueva cuenta</a></button>
@@ -41,5 +40,11 @@
             </div>
         </div>        
     </footer>
+    <script>
+        const loginButton = document.getElementById("login-button");
+        loginButton.addEventListener("click", function() {
+            window.location.href = "main_menu.html"
+        })
+    </script>
 </body>
 </html>
