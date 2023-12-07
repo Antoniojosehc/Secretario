@@ -7,7 +7,6 @@
 body {
     background-color: #CBDEF8;
     margin: 0;
-    overflow: hidden;
     font-family: Arial, sans-serif;
 }
 
@@ -16,6 +15,8 @@ body {
     height: 50px;
     display: flex;
     justify-content: space-between;
+    position: relative;
+    z-index: 100;
 }
 
 .logo {
@@ -39,6 +40,10 @@ body {
     background-color: #274d83;    
     width: 300px;
     height: 100vh;
+    position: absolute;
+    z-index: 50;
+    top: 50px;
+    left: 0;
     display: inline-block;
     box-shadow: 2px 2px 5px black;
 }
@@ -55,12 +60,13 @@ body {
 
 a:hover {
     text-decoration: underline;
+    color: white;
 }
 
 .content {
     position: absolute;
     display: inline-block;
-    margin: 80px;
+    margin: 80px 0 0 320px;
     color: #1a3458;   
 }
 
@@ -74,7 +80,7 @@ h1 {
     padding: 7px;
 }
 
-.button {
+button {
     width: 100px;
     padding: 9px;
     background-color: #274d83;
@@ -83,7 +89,7 @@ h1 {
     margin: 10px auto;
 }
 
-.button:hover {
+button:hover {
     background-color: #3562a0;
 }
 
@@ -94,20 +100,6 @@ hr {
 p {
     color: #d36e2b;
     font-size: 20px;
-}
-
-footer {
-    background-color: #EEEEEE;
-    position: relative;
-    width: 100%;
-    bottom: 0;
-}
-
-.footer-container {
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 input.input-error {
@@ -125,11 +117,16 @@ input.input-error {
     text-align: center;
 }
 
-.avatar {
-    border-radius: 50%;
-    border: 1px solid #666;
-}
-
 .eliminar, .editar {
     cursor: pointer;
+}
+
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+.table {
+    width: 100%;
 }

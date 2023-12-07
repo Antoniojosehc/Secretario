@@ -37,16 +37,16 @@ function validarForm() {
         isValid = false;
     }
 
-    fechaBautismo.classList.remove("input-error");
-    if (fechaBautismo.value === "") {
-        fechaBautismo.classList.add("input-error");
-        isValid = false;
-    }
+    var hombre = document.getElementById("hombre");
+    var mujer = document.getElementById("mujer");
 
-    telefono.classList.remove("input-error");
-    if (telefono.value === "") {
-        telefono.classList.add("input-error");
+    hombre.classList.remove("input-error");
+    mujer.classList.remove("input-error");
+    if (!hombre.checked && !mujer.checked) {
+        hombre.classList.add("input-error");
+        mujer.classList.add("input-error");
         isValid = false;
+        
     }
 
     return isValid;
@@ -78,6 +78,7 @@ function clickFrmSubmit(e) {
         //Creacion de objeto 
         var objUsuario = {
             "nombres": nombres,
+            "sexo": hombre.checked ? "Hombre" : "Mujer",
             "fechaNacimiento": fechaNacimiento,
             "fechaBautismo": fechaBautismo,
             "telefono": telefono
@@ -129,6 +130,7 @@ function printTable(data) {
         html += "<tr>"
         html += "<th scope='row'>" + (i + 1) + "</th>"
         html += "<td>" + data[i].nombres + "</td>";
+        html += "<td>" + data[i].sexo + "</td>";
         html += "<td>" + data[i].fechaNacimiento + "</td>";
         html += "<td>" + calcularEdad(data[i].fechaNacimiento) + "</td>";
         html += "<td>" + data[i].fechaBautismo + "</td>";
