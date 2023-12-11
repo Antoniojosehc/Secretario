@@ -68,8 +68,8 @@ function clickFrmSubmit(e) {
     var txtFechaBautismo = document.getElementById("fechaBautismo");
     var fechaBautismo = txtFechaBautismo.value;
     //-----
-    var txtTelefono = document.getElementById("telefono");
-    var telefono = txtTelefono.value;
+    var txtNotas = document.getElementById("notas");
+    var notas = txtNotas.value;
     
     var arrayUsers = loadData();
 
@@ -81,7 +81,7 @@ function clickFrmSubmit(e) {
             "sexo": hombre.checked ? "Hombre" : "Mujer",
             "fechaNacimiento": fechaNacimiento,
             "fechaBautismo": fechaBautismo,
-            "telefono": telefono
+            "notas": notas
         };
         console.log(objUsuario);
         //*********/
@@ -129,12 +129,12 @@ function printTable(data) {
     for (var i = 0; i < data.length; i++) {
         html += "<tr>"
         html += "<th scope='row'>" + (i + 1) + "</th>"
-        html += "<td>" + data[i].nombres + "</td>";
-        html += "<td>" + data[i].sexo + "</td>";
+        html += "<td>" + data[i].nombres + "</td>";        
         html += "<td>" + data[i].fechaNacimiento + "</td>";
         html += "<td>" + calcularEdad(data[i].fechaNacimiento) + "</td>";
         html += "<td>" + data[i].fechaBautismo + "</td>";
-        html += "<td>" + data[i].telefono + "</td>";
+        html += "<td>" + data[i].sexo + "</td>";
+        html += "<td>" + data[i].notas + "</td>";
         html += "<td>";
         html += "<div data-id='" + i + "' class='eliminar'>Eliminar</div>";
         html += "<div data-id='" + i + "' class='editar'>Editar</div>"
@@ -175,7 +175,7 @@ function editar(i) {
     nombres.value = objEditar.nombres;
     fechaNacimiento.value = objEditar.fechaNacimiento;
     fechaBautismo.value = objEditar.fechaBautismo;
-    telefono.value = objEditar.telefono;
+    notas.value = objEditar.notas;
     
 }
 

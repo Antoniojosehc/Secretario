@@ -31,12 +31,18 @@
                 <br>
                 <div class="row">
                     <div class="col-4">
-                        <br>
                         <label for="nombres" class="form-label">Nombre Completo*</label>
                         <input type="text" class="form-control" id="nombres" placeholder="Nombre Apellido">
+                    </div>                    
+                    <div class="col-2">
+                        <label for="fechaNacimiento" class="form-label">Fecha de nacimiento*</label>
+                        <input type="date" class="form-control" id="fechaNacimiento">
                     </div>
                     <div class="col-2">
-                        <br>
+                        <label for="fechaBautismo" class="form-label">Fecha de bautismo</label>
+                        <input type="date" class="form-control" id="fechaBautismo">
+                    </div>
+                    <div class="col-2">
                         <div>Sexo*</div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="hombre">
@@ -50,19 +56,10 @@
                               Mujer
                             </label>
                         </div>
-                    </div>
-                    <div class="col-2">
-                        <label for="fechaNacimiento" class="form-label">Fecha de nacimiento*</label>
-                        <input type="date" class="form-control" id="fechaNacimiento">
-                    </div>
-                    <div class="col-2">
-                        <label for="fechaBautismo" class="form-label">Fecha de bautismo</label>
-                        <input type="date" class="form-control" id="fechaBautismo">
                     </div>                                     
                     <div class="col-2">
-                        <br>
-                        <label for="telefono" class="form-label">Teléfono</label>
-                        <input type="number" class="form-control" id="telefono">
+                        <label for="notas" class="form-label">Notas</label>
+                        <input type="text" class="form-control" id="notas">
                     </div>                                        
                 </div>                
                 <br>
@@ -80,12 +77,12 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nombre Completo</th>
-                        <th scope="col">Sexo</th>
+                        <th scope="col">Nombre Completo</th>                        
                         <th scope="col">Fecha de nacimiento</th>
                         <th scope="col">Edad</th>
-                        <th scope="col">Fecha de bautismo</th>                    
-                        <th scope="col">Telefono</th>                    
+                        <th scope="col">Fecha de bautismo</th>
+                        <th scope="col">Sexo</th>                    
+                        <th scope="col">Notas</th>                    
                     </tr>
                     </thead>
                     <tbody id="bodyList">
