@@ -73,33 +73,18 @@ function clickFrmSubmit(e) {
     
     var arrayUsers = loadData();
 
-    window.setTimeout(function () {
-        //-----
-        //Creacion de objeto 
-        var objUsuario = {
-            "nombres": nombres,
-            "sexo": hombre.checked ? "Hombre" : "Mujer",
-            "fechaNacimiento": fechaNacimiento,
-            "fechaBautismo": fechaBautismo,
-            "notas": notas
-        };
-        console.log(objUsuario);
-        //*********/
-        if(indexUser===null) {
-            arrayUsers.push(objUsuario);
-        } else {
-            arrayUsers[indexUser] = objUsuario;
-        }
+//-----
+    //Creacion de objeto 
+    var objUsuario = {
+        "fullName": nombres,
+        "sex": hombre.checked ? "Hombre" : "Mujer",
+        "bornDate": fechaNacimiento,
+        "baptismDate": fechaBautismo,
+        "notes": notas
+    };
+    
+    createData(objUsuario);
 
-        indexUser = null;
-        
-        printTable(arrayUsers);
-        //*********/
-        jArray = JSON.stringify(arrayUsers);
-        localStorage.setItem("usersData", jArray);
-        //*********/
-        resetData.click();
-    }, 3000);
 }
 
 function loadData() {
@@ -175,6 +160,25 @@ function eliminar(i) {
     if(confirm("¿Está seguro que desea eliminar el publicador?")) {
         deleteData(i);
     }
+}
+
+function createData(request) {
+    request = JSON.stringify(request);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", urlApiUser);
+    xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+    xhr.send(request);
+    //xhr.responseType = "json";
+    xhr.onload = () => {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            const data = xhr.response;
+            console.log(data);
+            loadData();
+            resetData.click();
+        } else {
+            console.log('Error: ${xhr.status}');
+        }
+    };
 }
 
 function loadData() {
