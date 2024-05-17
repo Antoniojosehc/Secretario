@@ -1,5 +1,6 @@
 window.addEventListener("load", onloadwindow)
 var indexUser = null;
+var urlApiUser = "http://localhost:8080/publicador";
 
 function onloadwindow(e) {
     var btnSubmit = document.getElementById("btnSubmit");
@@ -9,7 +10,6 @@ function onloadwindow(e) {
     btnClearLocalStorage.addEventListener("click", deleteLocalStorageData);
 
     var arrayUsers = loadData();
-    printTable(arrayUsers);
 }
 
 function deleteLocalStorageData() {
@@ -103,15 +103,7 @@ function clickFrmSubmit(e) {
 }
 
 function loadData() {
-    var arrayUsers = [];
-    //*********/
-    var usersData = localStorage.getItem("usersData");
-    if (usersData === null) {
-        localStorage.setItem("usersData", "[]");
-    } else {
-        arrayUsers = JSON.parse(usersData);
-    }
-    return arrayUsers;
+    
 }
 
 function calcularEdad(fecha) {
@@ -129,15 +121,15 @@ function printTable(data) {
     for (var i = 0; i < data.length; i++) {
         html += "<tr>"
         html += "<th scope='row'>" + (i + 1) + "</th>"
-        html += "<td>" + data[i].nombres + "</td>";        
-        html += "<td>" + data[i].fechaNacimiento + "</td>";
-        html += "<td>" + calcularEdad(data[i].fechaNacimiento) + "</td>";
-        html += "<td>" + data[i].fechaBautismo + "</td>";
-        html += "<td>" + data[i].sexo + "</td>";
-        html += "<td>" + data[i].notas + "</td>";
+        html += "<td>" + data[i].fullName + "</td>";        
+        html += "<td>" + data[i].bornDate + "</td>";
+        html += "<td>" + calcularEdad(data[i].bornDate) + "</td>";
+        html += "<td>" + data[i].baptismDate + "</td>";
+        html += "<td>" + data[i].sex + "</td>";
+        html += "<td>" + data[i].notes + "</td>";
         html += "<td>";
-        html += "<div data-id='" + i + "' class='eliminar'>Eliminar</div>";
-        html += "<div data-id='" + i + "' class='editar'>Editar</div>"
+        html += "<div data-id='" + data[i].id + "' class='eliminar'>Eliminar</div>";
+        html += "<div data-id='" + data[i].id + "' class='editar'>Editar</div>"
         html += "</td>";
         html += "</tr>";
     }
@@ -180,37 +172,36 @@ function editar(i) {
 }
 
 function eliminar(i) {
-    var arrayUsers = loadData();
-    if(i >= arrayUsers.length) {
-        alert("El elemento a eliminar no existe!");
-        return;
-    } 
-    if(i < 0) {
-        alert("El elemento a eliminar no es valido!");
-        return;
-    } 
-    if(confirm("¿Está seguro que desea eliminar a " + arrayUsers[i].nombres + " de la lista?")) {
-        var arrTemp = [];
-        for(var j = 0; j < arrayUsers.length; j++) {
-            if(j != i) {
-                arrTemp.push(arrayUsers[j]);
-            }
-        }
-        jArray = JSON.stringify(arrTemp);
-        localStorage.setItem("usersData", jArray);
-        printTable(arrTemp);
+    if(confirm("¿Está seguro que desea eliminar el publicador?")) {
+        deleteData(i);
     }
 }
 
 function loadData() {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:8080/publicador");
+    xhr.open("GET", urlApiUser);
     xhr.send();
     xhr.responseType = "json";
     xhr.onload = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
             const data = xhr.response;
             console.log(data);
+            printTable(data);
+        } else {
+            console.log('Error: ${xhr.status}');
+        }
+    };
+}
+
+function deleteData(id) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("DELETE", urlApiUser + "/" + id);
+    xhr.send();
+    //xhr.responseType = "json";
+    xhr.onload = () => {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            const data = xhr.response;
+            loadData();
         } else {
             console.log('Error: ${xhr.status}');
         }
