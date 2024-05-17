@@ -82,8 +82,12 @@ function clickFrmSubmit(e) {
         "baptismDate": fechaBautismo,
         "notes": notas
     };
-    
-    createData(objUsuario);
+
+    if(indexUser===null) {
+        createData(objUsuario);
+    } else {
+        updateData(objUsuario, indexUser);
+    } 
 
 }
 
@@ -106,7 +110,7 @@ function printTable(data) {
     for (var i = 0; i < data.length; i++) {
         html += "<tr>"
         html += "<th scope='row'>" + (i + 1) + "</th>"
-        html += "<td>" + data[i].fullName + "</td>";        
+        html += "<td>" + data[i].fullName + "</td>";
         html += "<td>" + data[i].bornDate + "</td>";
         html += "<td>" + calcularEdad(data[i].bornDate) + "</td>";
         html += "<td>" + data[i].baptismDate + "</td>";
@@ -138,28 +142,65 @@ function printTable(data) {
 }
 
 function editar(i) {
-    indexUser = i;
-    var arrayUsers = loadData();
-    if(i >= arrayUsers.length) {
-        alert("El elemento a editar no existe!");
-        return;
-    } 
-    if(i < 0) {
-        alert("El elemento a editar no es valido!");
-        return;
-    } 
-    var objEditar = arrayUsers[i];
-    nombres.value = objEditar.nombres;
-    fechaNacimiento.value = objEditar.fechaNacimiento;
-    fechaBautismo.value = objEditar.fechaBautismo;
-    notas.value = objEditar.notas;
+    loadDataById(i);
     
+}
+
+function updateData(request, id) {
+    request = JSON.stringify(request);
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", urlApiUser + "/" + id);
+    xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+    xhr.send(request);
+    //xhr.responseType = "json";
+    xhr.onload = () => {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            indexUser = null;
+            const data = xhr.response;
+            console.log(data);
+            loadData();
+            resetData.click();
+        } else {
+            alert("Error al ejecutar la transacción, el servidor no puede procesar la solicitud");
+            console.log('Error: ${xhr.status}');
+        }
+    };
 }
 
 function eliminar(i) {
     if(confirm("¿Está seguro que desea eliminar el publicador?")) {
         deleteData(i);
     }
+}
+
+function loadDataById(id) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", urlApiUser + "/" + id);
+    xhr.send();
+    xhr.responseType = "json";
+    xhr.onload = () => {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            const data = xhr.response;
+            console.log(data);
+            resetData.click();
+            nombres.value = data.fullName;
+
+            var newBornDate = data.bornDate.replace("T", "-");
+            var arrayBornDate = newBornDate.split("-");
+            fechaNacimiento.value = arrayBornDate[0]+"-"+arrayBornDate[1]+"-"+arrayBornDate[2];
+
+            var newBaptismDate = data.baptismDate.replace("T", "-");
+            var arrayBaptismDate = newBaptismDate.split("-");
+            fechaBautismo.value = arrayBaptismDate[0]+"-"+arrayBaptismDate[1]+"-"+arrayBaptismDate[2];
+            
+            notas.value = data.notes;
+            indexUser = id;
+            
+        } else {
+            alert("Error al ejecutar la transacción, el servidor no puede procesar la solicitud");
+            console.log('Error: ${xhr.status}');
+        }
+    };
 }
 
 function createData(request) {
@@ -176,6 +217,7 @@ function createData(request) {
             loadData();
             resetData.click();
         } else {
+            alert("Error al ejecutar la transacción, el servidor no puede procesar la solicitud");
             console.log('Error: ${xhr.status}');
         }
     };
@@ -192,6 +234,7 @@ function loadData() {
             console.log(data);
             printTable(data);
         } else {
+            alert("Error al ejecutar la transacción, el servidor no puede procesar la solicitud");
             console.log('Error: ${xhr.status}');
         }
     };
@@ -207,6 +250,7 @@ function deleteData(id) {
             const data = xhr.response;
             loadData();
         } else {
+            alert("Error al ejecutar la transacción, el servidor no puede procesar la solicitud");
             console.log('Error: ${xhr.status}');
         }
     };
