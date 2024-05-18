@@ -111,9 +111,9 @@ function printTable(data) {
         html += "<tr>"
         html += "<th scope='row'>" + (i + 1) + "</th>"
         html += "<td>" + data[i].fullName + "</td>";
-        html += "<td>" + data[i].bornDate + "</td>";
+        html += "<td>" + formatDate(data[i].bornDate) + "</td>";
         html += "<td>" + calcularEdad(data[i].bornDate) + "</td>";
-        html += "<td>" + data[i].baptismDate + "</td>";
+        html += "<td>" + (data[i].baptismDate ? formatDate(data[i].baptismDate) : "") + "</td>";
         html += "<td>" + data[i].sex + "</td>";
         html += "<td>" + data[i].notes + "</td>";
         html += "<td>";
@@ -144,6 +144,10 @@ function printTable(data) {
 function editar(i) {
     loadDataById(i);
     
+}
+
+function formatDate(dateString) {
+    return dateString.split('T')[0];
 }
 
 function updateData(request, id) {
@@ -183,17 +187,28 @@ function loadDataById(id) {
             const data = xhr.response;
             console.log(data);
             resetData.click();
-            nombres.value = data.fullName;
+            nombres.value = data.fullName;            
 
-            var newBornDate = data.bornDate.replace("T", "-");
-            var arrayBornDate = newBornDate.split("-");
-            fechaNacimiento.value = arrayBornDate[0]+"-"+arrayBornDate[1]+"-"+arrayBornDate[2];
+            var formattedBornDate = formatDate(data.bornDate);
+            fechaNacimiento.value = formattedBornDate;
 
-            var newBaptismDate = data.baptismDate.replace("T", "-");
-            var arrayBaptismDate = newBaptismDate.split("-");
-            fechaBautismo.value = arrayBaptismDate[0]+"-"+arrayBaptismDate[1]+"-"+arrayBaptismDate[2];
-            
+            // Procesar fecha de bautismo
+            if (data.baptismDate) {
+                var formattedBaptismDate = formatDate(data.baptismDate);
+                fechaBautismo.value = formattedBaptismDate;
+            } else {
+                fechaBautismo.value = ""; // Limpiar el campo si no hay fecha
+            }
+
             notas.value = data.notes;
+
+            //Cargar el campo de Sexo
+            if (data.sex === "Hombre") {
+                document.getElementById("hombre").checked = true;
+            } else if (data.sex === "Mujer") {
+                document.getElementById("mujer").checked = true;
+            }
+
             indexUser = id;
             
         } else {
