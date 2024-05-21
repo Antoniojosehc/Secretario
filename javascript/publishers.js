@@ -1,7 +1,9 @@
+// Añadir un evento que se dispara cuando la ventana ha cargado completamente
 window.addEventListener("load", onloadwindow)
 var indexUser = null;
 var urlApiUser = "http://localhost:8080/publicador";
 
+// Función que se ejecuta cuando la ventana ha cargado
 function onloadwindow(e) {
     var btnSubmit = document.getElementById("btnSubmit");
     btnSubmit.addEventListener("click", clickFrmSubmit);
@@ -22,6 +24,7 @@ function deleteLocalStorageData() {
 
 }
 
+// Función para validar los campos obligatorios del formulario
 function validarForm() {
     var isValid = true;
 
@@ -53,6 +56,7 @@ function validarForm() {
 
 }
 
+// Función que se ejecuta al enviar el formulario
 function clickFrmSubmit(e) {
     if (!validarForm()) {
         alert("Hay campos faltantes por rellenar");
@@ -74,7 +78,7 @@ function clickFrmSubmit(e) {
     var arrayUsers = loadData();
 
 //-----
-    //Creacion de objeto 
+    //Crear objeto de usuario con los datos del formulario 
     var objUsuario = {
         "fullName": nombres,
         "sex": hombre.checked ? "Hombre" : "Mujer",
@@ -83,6 +87,7 @@ function clickFrmSubmit(e) {
         "notes": notas
     };
 
+    // Crear o actualizar los datos del usuario según el índice de usuario
     if(indexUser===null) {
         createData(objUsuario);
     } else {
@@ -91,10 +96,7 @@ function clickFrmSubmit(e) {
 
 }
 
-function loadData() {
-    
-}
-
+// Función para calcular la edad a partir de la fecha de nacimiento
 function calcularEdad(fecha) {
     var dateNacimiento = new Date(fecha);
     var now = new Date();
@@ -105,6 +107,7 @@ function calcularEdad(fecha) {
     return edad;
 }
 
+// Función para imprimir la tabla de usuarios
 function printTable(data) {
     var html = "";
     for (var i = 0; i < data.length; i++) {
@@ -124,6 +127,7 @@ function printTable(data) {
     }
     bodyList.innerHTML = html;
 
+    // Añadir eventos de clic a los botones de eliminar
     var btnsEliminar = document.getElementsByClassName("eliminar");
     for(var i = 0; i < btnsEliminar.length; i++) {
         var btnEliminar = btnsEliminar[i];
@@ -132,6 +136,7 @@ function printTable(data) {
         });
     }
 
+    // Añadir eventos de clic a los botones de editar
     var btnsEditar = document.getElementsByClassName("editar");
     for(var i = 0; i < btnsEditar.length; i++) {
         var btnEditar = btnsEditar[i];
@@ -141,15 +146,18 @@ function printTable(data) {
     }
 }
 
+// Función para editar un usuario por su ID
 function editar(i) {
     loadDataById(i);
     
 }
 
+// Función para formatear una fecha en formato legible
 function formatDate(dateString) {
     return dateString.split('T')[0];
 }
 
+// Función para actualizar los datos de un usuario
 function updateData(request, id) {
     request = JSON.stringify(request);
     const xhr = new XMLHttpRequest();
@@ -171,6 +179,7 @@ function updateData(request, id) {
     };
 }
 
+// Función para eliminar un usuario por su ID
 function eliminar(i) {
     if(confirm("¿Está seguro que desea eliminar el publicador?")) {
         deleteData(i);
@@ -218,6 +227,7 @@ function loadDataById(id) {
     };
 }
 
+// Función para crear un nuevo usuario
 function createData(request) {
     request = JSON.stringify(request);
     const xhr = new XMLHttpRequest();
