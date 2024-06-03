@@ -1,97 +1,62 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
     background-image: url(../images/Background.png);
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
-.form {
-    background: #fff;
-    width: 500px;    
-    margin: auto;
-    margin-top: 70px;
-    padding: 30px 40px;
-    box-shadow: 2px 2px 5px #1a3458;
+.container {
+    width: 100%;
+    max-width: 400px;
 }
 
-.logo {
-    width: 90px;
-    height: 70px;
-    background-image: url("../images/Secretario_logo.png");
-    display: inline-block;
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.custom-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.custom-card:hover {
+    transform: scale(1.02);
+}
+
+.custom-text-color {
+    color: #1a3458;
+}
+
+.custom-btn {
+    background-color: #1a3458 !important;
+    color: #ffffff !important;
+    margin: 10px 0;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.custom-btn:hover {
+    background-color: #274d83 !important;
+}
+
+.card-title {
+    font-size: 24px;
     margin-bottom: 20px;
 }
 
-.header {
-    width: auto;
-    height: 70px;
-    display: inline-block;
-    position: absolute;
-    padding: 10px;
-    color: #1a3458;  
-}
-
-.field {
-    width: 100%;
-    margin: 0 auto 10px;
-    padding: 7px;
-    border: 1px solid #d4d2cd;
-}
-
-h4 {
-    margin-bottom: 10px;
-}
-
-.button {
-    width: 100%;
-    padding: 10px;
-    background-color: #274d83;
-    color: #fff;
-    border: none;
-    margin: 10px auto;
-}
-
-.button:hover {
-    background-color: #3b65a0;
-}
-
-.link {
-    text-decoration: none;
-    color: #4A6DA7;
-}
-
-.outside {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.new-account {
-    color: white;
-}
-
-#account {
-    padding: 10px;
-}
-
-.account {
-    padding: 10px;
-    text-decoration: none;
-}
-
-footer {
-    background-color: #EEEEEE;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-.footer-container {
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.logo {
+    display: block;
+    margin: 0 auto 20px;
+    width: 80px; /* Adjust the size as needed */
+    height: auto;
 }

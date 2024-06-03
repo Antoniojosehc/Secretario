@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(../images/Background.png);
+    font-family: Arial, sans-serif;
+}
+
+.form {
+    background: #fff;
+    width: 500px;    
+    margin: auto;
+    margin-top: 70px;
+    padding: 30px 40px;
+    box-shadow: 2px 2px 5px #1a3458;
+}
+
+.logo {
+    width: 90px;
+    height: 70px;
+    background-image: url("../images/Secretario_logo.png");
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.header {
+    width: auto;
+    height: 70px;
+    display: inline-block;
+    position: absolute;
+    padding: 10px;
+    color: #1a3458;  
+}
+
+.field {
+    width: 100%;
+    margin: 0 auto 10px;
+    padding: 7px;
+    border: 1px solid #d4d2cd;
+}
+
+h4 {
+    margin-bottom: 10px;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    background-color: #274d83;
+    color: #fff;
+    border: none;
+    margin: 10px auto;
+}
+
+.button:hover {
+    background-color: #3b65a0;
+}
+
+.link {
+    text-decoration: none;
+    color: #4A6DA7;
+}
+
+.outside {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.new-account {
+    color: white;
+}
+
+#account {
+    padding: 10px;
+}
+
+.account {
+    padding: 10px;
+    text-decoration: none;
+}
+
+footer {
+    background-color: #EEEEEE;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer-container {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
