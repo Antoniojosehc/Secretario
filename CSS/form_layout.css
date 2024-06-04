@@ -1,70 +1,94 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+* {
     margin: 0;
-    background-color: #f0f0f0;
-    font-family: 'Arial', sans-serif;
-    color: #1a3458;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.container {
-    width: 100%;
-    max-width: 600px;
+body {
+    background-image: url(../images/Background.png);
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.header {
-    margin-bottom: 20px;
+form {
+    margin-bottom: 60px; /* Añade espacio extra en la parte inferior */
+}
+
+.form {
+    background: #fff;
+    width: 500px;    
+    margin: auto;
+    margin-top: 70px;
+    padding: 30px 40px;
+    box-shadow: 2px 2px 5px #1a3458;
 }
 
 .logo {
-    display: block;
-    margin: 0 auto 20px;
-    width: 80px; /* Adjust the size as needed */
-    height: auto;
+    width: 90px;
+    height: 70px;
+    background-image: url("../images/Secretario_logo.png");
+    display: inline-block;
+    margin-bottom: 20px;
+    cursor: pointer; /* Cambia el cursor a pointer para indicar que es un enlace */
 }
 
-.custom-form {
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+.header {
+    width: auto;
+    height: 70px;
+    display: inline-block;
+    position: absolute;
+    padding: 10px;
+    color: #1a3458;  
 }
 
-.custom-btn {
-    background-color: #1a3458 !important;
-    color: #ffffff !important;
-    border-radius: 5px;
-}
-
-.custom-btn:hover {
-    background-color: #274d83 !important;
-}
-
-.footer {
-    position: fixed;
-    bottom: 0;
+.field {
     width: 100%;
-    background-color: #ffffff;
-    padding: 10px 0;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto 10px;
+    padding: 7px;
+    border: 1px solid #d4d2cd;
+}
+
+h4 {
+    margin-bottom: 10px;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    background-color: #274d83;
+    color: #fff;
+    border: none;
+    margin: 10px auto;
+}
+
+.button:hover {
+    background-color: #3b65a0;
+}
+
+.link {
+    text-decoration: none;
+    color: #4A6DA7;
+}
+
+footer {
+    background-color: #EEEEEE;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* Cambia la posición para que el footer no se superponga */
+    margin-top: auto; /* Asegura que el footer esté al final de la página */
 }
 
 .footer-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
 }
 
-.footer-container a {
-    color: #1a3458;
-    text-decoration: none;
-}
-
-.footer-container a:hover {
-    text-decoration: underline;
+.left-content, .right-content {
+    padding: 0 10px;
 }
