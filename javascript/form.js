@@ -1,77 +1,99 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const publicadorSelect = document.getElementById('publicador');
-    const anioSelect = document.getElementById('anio');
-    const mesSelect = document.getElementById('mes');
+window.addEventListener("load", onLoadWindow);
 
-    // Cargar los publicadores al dar clic
-    publicadorSelect.addEventListener('click', function() {
-        if (publicadorSelect.options.length === 0) {
-            fetch('http://localhost:8080/publicador')
-                .then(response => response.json())
-                .then(data => {
-                    data.sort((a, b) => a.fullName.localeCompare(b.fullName)); // Ordenar alfabéticamente
-                    data.forEach(publicador => {
-                        const option = document.createElement('option');
-                        option.value = publicador.id;
-                        option.textContent = publicador.fullName;
-                        publicadorSelect.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Error al cargar publicadores:', error));
-        }
-    }); 
+const urlApiPublicador = "http://localhost:8080/publicador";
+const urlApiInforme = "http://localhost:8080/informeMensual";
 
-    // Llenar el año actual y el año anterior
+// Función que se ejecuta cuando la ventana ha cargado
+function onLoadWindow() {
+    loadPublicadores();
+    loadAnioMesOptions();
+    
+    const btnEnviarInforme = document.getElementById("btnEnviarInforme");
+    btnEnviarInforme.addEventListener("click", enviarInforme);
+}
+
+// Cargar la lista de publicadores
+function loadPublicadores() {
+    fetch(urlApiPublicador)
+        .then(response => response.json())
+        .then(data => {
+            const publicadorSelect = document.getElementById("publicador");
+            data.forEach(publicador => {
+                const option = document.createElement("option");
+                option.value = publicador.id;
+                option.text = publicador.fullName;
+                publicadorSelect.add(option);
+            });
+        })
+        .catch(error => console.error('Error al cargar publicadores:', error));
+}
+
+// Cargar opciones de año y mes
+function loadAnioMesOptions() {
+    const anioSelect = document.getElementById("anio");
+    const mesSelect = document.getElementById("mes");
     const currentYear = new Date().getFullYear();
-    [currentYear, currentYear - 1].forEach(year => {
-        const option = document.createElement('option');
+
+    for (let year = currentYear; year >= 2000; year--) {
+        const option = document.createElement("option");
         option.value = year;
-        option.textContent = year;
-        anioSelect.appendChild(option);
-    });
-
-    // Llenar los meses actual y anterior
-    const currentMonth = new Date().getMonth() + 1;
-    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-    // Agregar mes actual y mes anterior
-    for (let i = currentMonth; i >= currentMonth - 1 && i > 0; i--) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.textContent = months[i - 1];
-        mesSelect.appendChild(option);
+        option.text = year;
+        anioSelect.add(option);
     }
 
-    // Manejar el envío del formulario
-    const informeForm = document.getElementById('informeForm');
-    informeForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    meses.forEach((mes, index) => {
+        const option = document.createElement("option");
+        option.value = index + 1;
+        option.text = mes;
+        mesSelect.add(option);
+    });
+}
 
-        const formData = new FormData(informeForm);
-        const informeData = {
-            Anio: formData.get('anio'),
-            Mes: formData.get('mes'),
-            Publicaciones: formData.get('publicaciones'),
-            Videos: formData.get('videos'),
-            Horas: formData.get('horas'),
-            ID_Publicador: formData.get('publicador')
-        };
+// Enviar el informe
+function enviarInforme() {
+    const publicador = document.getElementById("publicador").value;
+    const anio = document.getElementById("anio").value;
+    const mesNumero = document.getElementById("mes").value;
+    const mesNombre = obtenerNombreMes(mesNumero); // Obtener el nombre del mes
+    const publicaciones = document.getElementById("publicaciones").value;
+    const videos = document.getElementById("videos").value;
+    const horas = document.getElementById("horas").value;
 
-        fetch('http://localhost:8080/informeMensual', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(informeData)
-        })
+    const informeData = {
+        idPublicador: publicador,
+        anio: anio,
+        mes: mesNombre, // Utilizar el nombre del mes
+        publicaciones: publicaciones,
+        videos: videos,
+        horas: horas
+    };
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(informeData)
+    };
+
+    fetch(urlApiInforme, requestOptions)
         .then(response => {
             if (response.ok) {
-                alert('Informe agregado exitosamente');
-                informeForm.reset();
+                alert("Informe enviado exitosamente");
+                document.getElementById("informeForm").reset();
             } else {
-                alert('Error al agregar informe');
+                response.json().then(data => {
+                    alert(data.message || "Error al enviar el informe. Puede que el informe ya exista.");
+                });
             }
         })
-        .catch(error => console.error('Error al enviar el informe:', error));
-    });
-});
+        .catch(error => {
+            console.error('Error al enviar el informe:', error);
+            alert("Error al enviar el informe");
+        });
+}
+
+// Función para obtener el nombre del mes a partir de su número
+function obtenerNombreMes(numeroMes) {
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    return meses[numeroMes - 1]; // Restar 1 porque los arrays comienzan en índice 0
+}
