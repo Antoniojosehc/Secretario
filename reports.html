@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Asistente para el secretario de la congregación">
+    <link rel="stylesheet" href="CSS/form_layout.css">
+    <link rel="icon" href="images/Secretario_logo.png">
+    <script type="text/javascript" src="javascript/reports.js"></script>
+    <title>Ver Informes</title>
+</head>
+<body>
+    <section class="form">
+        <a href="index.html">
+            <div class="logo"></div>
+        </a>
+        <div class="header">
+            <h2>Secretario</h2>
+            <h4>Ver Informes</h4>
+        </div>
+        <form id="informeForm">
+            <h4>Seleccionar Publicador</h4>
+            <select id="publicador" name="publicador" class="field" required>
+                <!-- Opciones serán llenadas dinámicamente con JavaScript -->
+            </select>
+            <button type="button" class="button" id="btnVerInforme">Ver Informes</button>
+        </form>
+        <table id="informesTable" class="informes-table">
+            <thead>
+                <tr>
+                    <th>Año</th>
+                    <th>Mes</th>
+                    <th>Publicaciones</th>
+                    <th>Videos</th>
+                    <th>Horas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los informes serán llenados dinámicamente con JavaScript -->
+            </tbody>
+        </table>
+    </section>
+    <footer>
+        <div class="footer-container">
+            <div class="left-content">© 2023 Secretario</div>
+            <div class="right-content">
+                <a href="terms_conditions.html">Condiciones de uso</a>
+                |
+                <a href="privacy_policy.html">Política de privacidad</a>
+                |
+                <a href="about_us.html">Sobre nosotros</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
