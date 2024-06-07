@@ -72,23 +72,35 @@ h4 {
     color: #4A6DA7;
 }
 
-footer {
-    background-color: #EEEEEE;
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative; /* Cambia la posición para que el footer no se superponga */
-    margin-top: auto; /* Asegura que el footer esté al final de la página */
-}
-
 .footer-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #1a3458;
 }
 
-.left-content, .right-content {
-    padding: 0 10px;
+.footer-container a {
+    color: #1a3458;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-container a:hover {
+    text-decoration: underline;
+}
+
+.left-content {
+    flex: 1;
+}
+
+.right-content {
+    flex: 1;
+    text-align: right;
 }
