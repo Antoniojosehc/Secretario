@@ -60,3 +60,17 @@ body {
     width: 80px; /* Adjust the size as needed */
     height: auto;
 }
+
+.new-account, .account {
+    margin-top: 20px;
+    display: block;
+}
+
+.new-account a, .account a {
+    color: #1a3458;
+    text-decoration: none;
+}
+
+.new-account a:hover, .account a:hover {
+    text-decoration: underline;
+}

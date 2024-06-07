@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="CSS/index_layout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="icon" href="images/Secretario_logo.png">
-    <script type="text/javascript" src="javascript/login.js"></script>    
-    <title>Iniciar sesión</title>
+    <script type="text/javascript" src="javascript/register.js"></script>
+    <title>Crear cuenta</title>
 </head>
 <body>
     <div class="container">
@@ -16,21 +16,21 @@
             <div class="card custom-card">
                 <div class="card-content custom-text-color center-align">
                     <img src="images/Secretario_logo.png" alt="Secretario Logo" class="logo">
-                    <span class="card-title">Iniciar sesión</span>
+                    <span class="card-title">Crear cuenta</span>
                 </div>
                 <div class="card-action center-align">
-                    <form id="loginForm">
+                    <form id="registerForm">
                         <div class="input-field">
-                            <input type="text" id="username" name="username" required>
-                            <label for="username">Usuario</label>
+                            <input type="text" id="registerUsername" name="registerUsername" required>
+                            <label for="registerUsername">Usuario</label>
                         </div>
                         <div class="input-field">
-                            <input type="password" id="password" name="password" required>
-                            <label for="password">Contraseña</label>
+                            <input type="password" id="registerPassword" name="registerPassword" required>
+                            <label for="registerPassword">Contraseña</label>
                         </div>
-                        <button type="button" class="btn custom-btn" onclick="login()">Login</button>
+                        <button type="button" class="btn custom-btn" onclick="register()">Registrar</button>
                     </form>
-                    <p class="new-account">¿Necesita una cuenta? <a href="register.html" class="account">Crear una nueva cuenta</a></p>
+                    <p class="account">¿Ya tiene una cuenta? <a href="login.html" class="account">Iniciar sesión</a></p>
                 </div>
             </div>
         </div>
