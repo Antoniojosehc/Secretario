@@ -27,6 +27,7 @@ body {
     padding: 20px;
     text-align: center;
     transition: transform 0.2s;
+    width: 500px;
 }
 
 .custom-card:hover {
