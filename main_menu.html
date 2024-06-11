@@ -10,15 +10,19 @@
 </head>
 <body>
     <section class="top-bar">
-        <div>
-            <div class="logo"></div>                    
+        <div class="logo-container">
+            <div class="logo"></div>
             <div class="header">
                 <h3>Secretario</h3>
             </div>
         </div>
-        <div>
-            <a class="settings" href="user_settings.html">Perfil</a>
-        </div>        
+        <div class="profile-menu">
+            <button class="settings-btn">Perfil</button>
+            <div class="dropdown-content">
+                <a href="user_settings.html">Configuración</a>
+                <a href="index.html" id="logout">Cerrar sesión</a>
+            </div>
+        </div>
     </section>
     <section class="main-menu">
         <div class="menu-card">
@@ -31,9 +35,9 @@
             </div>
             <div class="menu-content">
                 <a href="publishers.html">Publicadores y precursores</a>
-                <a href="">Formulario S-21</a>
-                <a href="">Contactos de emergencia</a>
-                <a href="">Grupos de servicio</a>                   
+                <a href="#">Formulario S-21</a>
+                <a href="#">Contactos de emergencia</a>
+                <a href="#">Grupos de servicio</a>                   
             </div>           
         </div>
         <div class="menu-card">
@@ -45,7 +49,7 @@
             </div>
             <div class="menu-content">
                 <a href="reports.html">Informes del mes</a>
-                <a href="">Informes pendientes</a>                  
+                <a href="#">Informes pendientes</a>                  
             </div>           
         </div>
         <div class="menu-card">
@@ -56,7 +60,7 @@
                 </div>
             </div>
             <div class="menu-content">
-                <a href="">Asistencia</a>                 
+                <a href="#">Asistencia</a>                 
             </div>            
         </div>
     </section>
