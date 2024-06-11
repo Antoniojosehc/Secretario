@@ -32,22 +32,41 @@ function loadPublicadores() {
 function loadAnioMesOptions() {
     const anioSelect = document.getElementById("anio");
     const mesSelect = document.getElementById("mes");
-    const currentYear = new Date().getFullYear();
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // Los meses comienzan en 0
 
-    for (let year = currentYear; year >= 2000; year--) {
-        const option = document.createElement("option");
-        option.value = year;
-        option.text = year;
-        anioSelect.add(option);
+    // Añadir el año actual
+    const optionCurrentYear = document.createElement("option");
+    optionCurrentYear.value = currentYear;
+    optionCurrentYear.text = currentYear;
+    anioSelect.add(optionCurrentYear);
+
+    // Añadir el año anterior si es enero
+    if (currentMonth === 1) {
+        const optionPreviousYear = document.createElement("option");
+        optionPreviousYear.value = currentYear - 1;
+        optionPreviousYear.text = currentYear - 1;
+        anioSelect.add(optionPreviousYear);
     }
 
     const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    meses.forEach((mes, index) => {
-        const option = document.createElement("option");
-        option.value = index + 1;
-        option.text = mes;
-        mesSelect.add(option);
-    });
+
+    // Añadir el mes actual
+    let optionCurrentMonth = document.createElement("option");
+    optionCurrentMonth.value = currentMonth;
+    optionCurrentMonth.text = meses[currentMonth - 1];
+    mesSelect.add(optionCurrentMonth);
+
+    // Añadir el mes anterior
+    let previousMonth = currentMonth - 1;
+    if (previousMonth === 0) {
+        previousMonth = 12; // Diciembre del año anterior
+    }
+    let optionPreviousMonth = document.createElement("option");
+    optionPreviousMonth.value = previousMonth;
+    optionPreviousMonth.text = meses[previousMonth - 1];
+    mesSelect.add(optionPreviousMonth);
 }
 
 // Enviar el informe
@@ -79,7 +98,7 @@ function enviarInforme() {
         .then(response => {
             if (response.ok) {
                 alert("Informe enviado exitosamente");
-                document.getElementById("informeForm").reset();
+                window.location.href = "index.html";
             } else {
                 response.json().then(data => {
                     alert(data.message || "Error al enviar el informe. Puede que el informe ya exista.");
