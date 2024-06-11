@@ -64,7 +64,7 @@ function verInformes() {
                 updateButton.onclick = () => openUpdateModal(informe);
                 const deleteButton = document.createElement("button");
                 deleteButton.textContent = "Eliminar";
-                deleteButton.onclick = () => eliminarInforme(informe.id);
+                deleteButton.onclick = () => eliminarInforme(informe.idPublicador, informe.anio, informe.mes);  // <- Asegúrate de pasar los valores correctos aquí
                 actionsCell.appendChild(updateButton);
                 actionsCell.appendChild(deleteButton);
             });
@@ -74,9 +74,10 @@ function verInformes() {
     };
 }
 
+
 function openUpdateModal(informe) {
     const modal = document.getElementById("updateModal");
-    document.getElementById("updateId").value = informe.id;
+    document.getElementById("updateIdPublicador").value = informe.idPublicador;
     document.getElementById("updateAnio").value = informe.anio;
     document.getElementById("updateMes").value = informe.mes;
     document.getElementById("updatePublicaciones").value = informe.publicaciones;
@@ -85,8 +86,9 @@ function openUpdateModal(informe) {
     modal.style.display = "block";
 }
 
+
 function actualizarInforme() {
-    const id = document.getElementById("updateId").value;
+    const idPublicador = document.getElementById("updateIdPublicador").value;
     const anio = document.getElementById("updateAnio").value;
     const mes = document.getElementById("updateMes").value;
     const publicaciones = document.getElementById("updatePublicaciones").value;
@@ -107,7 +109,7 @@ function actualizarInforme() {
         body: JSON.stringify(informeData)
     };
 
-    fetch(`${urlApiInforme}/${id}`, requestOptions)
+    fetch(`${urlApiInforme}/${idPublicador}/${anio}/${mes}`, requestOptions)
         .then(response => {
             if (response.ok) {
                 alert("Informe actualizado exitosamente");
@@ -125,14 +127,14 @@ function actualizarInforme() {
         });
 }
 
-function eliminarInforme(id) {
+function eliminarInforme(idPublicador, anio, mes) {
     if (!confirm("¿Estás seguro de que deseas eliminar este informe?")) return;
 
     const requestOptions = {
         method: 'DELETE'
     };
 
-    fetch(`${urlApiInforme}/${id}`, requestOptions)
+    fetch(`${urlApiInforme}/${idPublicador}/${anio}/${mes}`, requestOptions)
         .then(response => {
             if (response.ok) {
                 alert("Informe eliminado exitosamente");
@@ -148,3 +150,4 @@ function eliminarInforme(id) {
             alert("Error al eliminar el informe");
         });
 }
+
