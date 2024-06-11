@@ -87,6 +87,7 @@ function openUpdateModal(informe) {
 }
 
 
+
 function actualizarInforme() {
     const idPublicador = document.getElementById("updateIdPublicador").value;
     const anio = document.getElementById("updateAnio").value;
@@ -100,7 +101,8 @@ function actualizarInforme() {
         mes: mes,
         publicaciones: publicaciones,
         videos: videos,
-        horas: horas
+        horas: horas,
+        idPublicador: idPublicador  // Añadir este campo al cuerpo de la solicitud
     };
 
     const requestOptions = {
@@ -126,6 +128,7 @@ function actualizarInforme() {
             alert("Error al actualizar el informe");
         });
 }
+
 
 function eliminarInforme(idPublicador, anio, mes) {
     if (!confirm("¿Estás seguro de que deseas eliminar este informe?")) return;

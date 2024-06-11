@@ -45,26 +45,34 @@
     <!-- Modal para actualizar informe -->
     <div id="updateModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h4>Actualizar Informe</h4>
-            <form id="updateForm">
-                <input type="hidden" id="updateId">
-                <input type="hidden" id="updateIdPublicador" />
-                <h4>Año</h4>
-                <input type="number" id="updateAnio" name="anio" class="field" required>
-                <h4>Mes</h4>
-                <input type="number" id="updateMes" name="mes" class="field" required>
-                <h4>Publicaciones</h4>
-                <input type="number" id="updatePublicaciones" name="publicaciones" class="field">
-                <h4>Videos</h4>
-                <input type="number" id="updateVideos" name="videos" class="field">
-                <h4>Horas</h4>
-                <input type="number" id="updateHoras" name="horas" class="field" required>
-                <button type="button" class="button" id="btnUpdateInforme">Actualizar</button>
-            </form>
+          <span class="close">&times;</span>
+          <h2>Actualizar Informe</h2>
+          <form id="updateForm">
+            <input type="hidden" id="updateIdPublicador" />
+            <div class="form-group">
+              <label for="updateAnio">Año:</label>
+              <input type="text" id="updateAnio" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="updateMes">Mes:</label>
+              <input type="text" id="updateMes" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="updatePublicaciones">Publicaciones:</label>
+              <input type="text" id="updatePublicaciones" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="updateVideos">Videos:</label>
+              <input type="text" id="updateVideos" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="updateHoras">Horas:</label>
+              <input type="text" id="updateHoras" class="form-control">
+            </div>
+            <button type="button" id="btnUpdateInforme" class="btn btn-primary">Actualizar</button>
+          </form>
         </div>
-    </div>
-
+      </div>
     <script src="javascript/footer.js"></script>
 </body>
 </html>

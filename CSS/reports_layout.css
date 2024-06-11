@@ -27,6 +27,40 @@ form {
     overflow-x: auto; /* Agregar desplazamiento horizontal para la tabla */
 }
 
+/* Estilos para el formulario */
+.form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: #274d83;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
 .logo {
     width: 90px;
     height: 70px;
@@ -134,32 +168,32 @@ h4 {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
-}
-
-.modal-content {
+  }
+  
+  .modal-content {
     background-color: #fefefe;
-    margin: 5% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 500px;
-    border-radius: 5px;
-}
-
-.close {
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  
+  .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
     text-decoration: none;
     cursor: pointer;
-}
+  }
 
 .footer-container {
     display: flex;
