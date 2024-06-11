@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Asistente para el secretario de la congregación">
-    <link rel="stylesheet" href="CSS/form_layout.css">
+    <link rel="stylesheet" href="CSS/reports_layout.css">
     <link rel="icon" href="images/Secretario_logo.png">
     <script type="text/javascript" src="javascript/reports.js"></script>
     <title>Ver Informes</title>
 </head>
 <body>
     <section class="form">
-        <a href="index.html">
+        <a href="main_menu.html">
             <div class="logo"></div>
         </a>
         <div class="header">
@@ -33,6 +33,7 @@
                     <th>Publicaciones</th>
                     <th>Videos</th>
                     <th>Horas</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +41,29 @@
             </tbody>
         </table>
     </section>
+
+    <!-- Modal para actualizar informe -->
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h4>Actualizar Informe</h4>
+            <form id="updateForm">
+                <input type="hidden" id="updateId">
+                <h4>Año</h4>
+                <input type="number" id="updateAnio" name="anio" class="field" required>
+                <h4>Mes</h4>
+                <input type="number" id="updateMes" name="mes" class="field" required>
+                <h4>Publicaciones</h4>
+                <input type="number" id="updatePublicaciones" name="publicaciones" class="field">
+                <h4>Videos</h4>
+                <input type="number" id="updateVideos" name="videos" class="field">
+                <h4>Horas</h4>
+                <input type="number" id="updateHoras" name="horas" class="field" required>
+                <button type="button" class="button" id="btnUpdateInforme">Actualizar</button>
+            </form>
+        </div>
+    </div>
+
     <script src="javascript/footer.js"></script>
 </body>
 </html>
