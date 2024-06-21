@@ -19,7 +19,7 @@ function login() {
     .then(response => response.text())
     .then(data => {
         if (data === "Login exitoso") {
-            window.location.href = "main_menu.html";  // Redirigir a main_menu.html en caso de éxito
+            window.location.href = "publishers.html";  // Redirigir a publishers.html en caso de éxito
         } else {
             alert("Usuario o contraseña incorrectos");
         }
