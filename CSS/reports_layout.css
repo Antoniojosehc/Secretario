@@ -4,38 +4,19 @@
     box-sizing: border-box;
 }
 
-body {    
+body {
+    background-color: #CBDEF8;
+    margin: 0;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-.top-bar {
-    background-image: url(../images/Background.png);
+#topbar-container {
+    width: 100%;
+    background-color: #f8f9fa;
     height: 50px;
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    z-index: 100;
-}
-
-.logo {
-    width: 90px;
-    height: 70px;
-    background-image: url("../images/Secretario_logo.png");
-    display: inline-block;
-    margin-bottom: 20px;
-    cursor: pointer; /* Cambia el cursor a pointer para indicar que es un enlace */
-}
-
-.header {
-    width: auto;
-    height: 70px;
-    display: inline-block;
-    position: absolute;
-    padding: 10px;
-    color: #1a3458;  
 }
 
 .side-bar {
@@ -61,13 +42,12 @@ body {
 }
 
 .form {
-    background: #fff;
+    flex-grow: 1; /* Ocupa todo el espacio restante */
     width: 90%; /* Reducir el ancho de la tarjeta */
-    max-width: 700px; /* Establecer un ancho máximo para evitar que la tarjeta se estire demasiado */
+    max-width: 900px; /* Establecer un ancho máximo para evitar que la tarjeta se estire demasiado */
     margin: auto;
     margin-top: 70px;
     padding: 30px 40px;
-    box-shadow: 2px 2px 5px #1a3458;
     overflow-x: auto; /* Agregar desplazamiento horizontal para la tabla */
 }
 
@@ -185,10 +165,4 @@ h4 {
     color: #000;
     text-decoration: none;
     cursor: pointer;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-   
+}  
