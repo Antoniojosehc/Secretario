@@ -5,25 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Asistente para el secretario de la congregación">
     <link rel="stylesheet" href="CSS/main_menu_layout.css">
+    <link rel="stylesheet" href="CSS/topbar_layout.css">
+    <link rel="stylesheet" href="CSS/footer_layout.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="icon" href="images/Secretario_logo.png">
     <title>Menú principal</title>
 </head>
 <body>
-    <section class="top-bar">
-        <div class="logo-container">
-            <div class="logo"></div>
-            <div class="header">
-                <h3>Secretario</h3>
-            </div>
-        </div>
-        <div class="profile-menu">
-            <button class="settings-btn">Perfil</button>
-            <div class="dropdown-content">
-                <a href="user_settings.html">Configuración</a>
-                <a href="index.html" id="logout">Cerrar sesión</a>
-            </div>
-        </div>
-    </section>
+    <div id="topbar-container"></div>
     <section class="main-menu">
         <div class="menu-card">
             <div class="menu-bar">
@@ -48,8 +38,8 @@
                 </div>
             </div>
             <div class="menu-content">
-                <a href="reports.html">Informes del mes</a>
-                <a href="#">Informes pendientes</a>                  
+                <a href="reports.html">Informes por publicador</a>
+                <a href="monthly_reports.html">Totales</a>                  
             </div>           
         </div>
         <div class="menu-card">
@@ -64,6 +54,9 @@
             </div>            
         </div>
     </section>
-    <script src="javascript/footer.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="javascript/footer.js"></script>
+    <script src="javascript/topbar.js"></script>  
 </body>
 </html>

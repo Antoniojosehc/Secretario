@@ -10,32 +10,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.top-bar {
-    background-image: url(../images/Background.png);
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    z-index: 100;
-}
-
-.logo {
-    width: 60px;
-    height: 50px;
-    background-image: url("../images/Secretario_minilogo.png");
-    display: inline-block;
-    margin-bottom: 20px;
-}
-
-.header {
-    height: 50px;
-    display: inline-block;
-    position: absolute;
-    padding-top: 13px;
-    padding-left: 20px;
-    color: white;
-}
-
 .side-bar {
     background-color: #274d83;    
     width: 300px;
@@ -129,37 +103,4 @@ input.input-error {
 
 .table {
     width: 100%;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ffffff;
-    padding: 10px 20px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    color: #1a3458;
-}
-
-.footer-container a {
-    color: #1a3458;
-    text-decoration: none;
-    margin: 0 5px;
-}
-
-.footer-container a:hover {
-    text-decoration: underline;
-}
-
-.left-content {
-    flex: 1;
-}
-
-.right-content {
-    flex: 1;
-    text-align: right;
 }

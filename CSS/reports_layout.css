@@ -4,62 +4,21 @@
     box-sizing: border-box;
 }
 
-body {
-    background-image: url(../images/Background.png);
+body {    
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-form {
-    margin-bottom: 60px; /* Añade espacio extra en la parte inferior */
+.top-bar {
+    background-image: url(../images/Background.png);
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 100;
 }
-
-.form {
-    background: #fff;
-    width: 90%; /* Reducir el ancho de la tarjeta */
-    max-width: 700px; /* Establecer un ancho máximo para evitar que la tarjeta se estire demasiado */
-    margin: auto;
-    margin-top: 70px;
-    padding: 30px 40px;
-    box-shadow: 2px 2px 5px #1a3458;
-    overflow-x: auto; /* Agregar desplazamiento horizontal para la tabla */
-}
-
-/* Estilos para el formulario */
-.form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-control {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .btn {
-    padding: 10px 20px;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .btn-primary {
-    background-color: #274d83;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
 
 .logo {
     width: 90px;
@@ -77,6 +36,39 @@ form {
     position: absolute;
     padding: 10px;
     color: #1a3458;  
+}
+
+.side-bar {
+    background-color: #274d83;    
+    width: 300px;
+    height: 100vh;
+    position: absolute;
+    z-index: 50;
+    top: 50px;
+    left: 0;
+    display: inline-block;
+    box-shadow: 2px 2px 5px black;
+}
+
+.option {
+    margin: 60px;
+}
+
+.option-link {    
+    font-size: 20px;        
+    color: white;
+    text-decoration: none;
+}
+
+.form {
+    background: #fff;
+    width: 90%; /* Reducir el ancho de la tarjeta */
+    max-width: 700px; /* Establecer un ancho máximo para evitar que la tarjeta se estire demasiado */
+    margin: auto;
+    margin-top: 70px;
+    padding: 30px 40px;
+    box-shadow: 2px 2px 5px #1a3458;
+    overflow-x: auto; /* Agregar desplazamiento horizontal para la tabla */
 }
 
 .field {
@@ -168,9 +160,9 @@ h4 {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
-  }
+}
   
-  .modal-content {
+.modal-content {
     background-color: #fefefe;
     margin: 10% auto;
     padding: 20px;
@@ -179,51 +171,24 @@ h4 {
     max-width: 600px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  }
+}
   
-  .close {
+.close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
+}
   
-  .close:hover,
-  .close:focus {
+.close:hover,
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
-  }
+}
 
 .footer-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff;
-    padding: 10px 20px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    color: #1a3458;
-}
-
-.footer-container a {
-    color: #1a3458;
-    text-decoration: none;
-    margin: 0 5px;
-}
-
-.footer-container a:hover {
-    text-decoration: underline;
-}
-
-.left-content {
-    flex: 1;
-}
-
-.right-content {
-    flex: 1;
-    text-align: right;
-}
+   
