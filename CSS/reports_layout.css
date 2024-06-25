@@ -1,3 +1,4 @@
+/* Estilos generales */
 * {
     margin: 0;
     padding: 0;
@@ -5,21 +6,27 @@
 }
 
 body {
+    background-color: #CBDEF8;
     font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#topbar-container {
+    width: 100%;
+    background-color: #f8f9fa;
+    height: 50px;
 }
 
 .side-bar {
-    background-color: #274d83;    
+    background-color: #274d83;
     width: 300px;
-    height: 100vh;
+    height: calc(100vh - 50px);
     position: absolute;
     z-index: 50;
     top: 50px;
     left: 0;
-    display: inline-block;
     box-shadow: 2px 2px 5px black;
 }
 
@@ -27,70 +34,90 @@ body {
     margin: 60px;
 }
 
-.option-link {    
-    font-size: 20px;        
+.option-link {
+    font-size: 20px;
     color: white;
     text-decoration: none;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem 0;
+a:hover {
+    text-decoration: underline;
+    color: white;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2rem;
+.content {
+    flex: 1;
+    margin: 80px 0 0 320px;
+    color: #1a3458;
+    padding-bottom: 100px;
 }
 
-main {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-section {
-    margin-bottom: 20px;
+h1 {
+    margin: 30px 0 10px;
 }
 
 h2 {
-    margin-top: 0;
+    margin-top: 20px;
 }
 
-table {
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+.table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-table, th, td {
+    background-color: #fff;
     border: 1px solid #ddd;
 }
 
 th, td {
     padding: 10px;
     text-align: left;
+    border: 1px solid #ddd;
 }
 
-/* Estilos específicos para la lista de informes pendientes */
-ul#pending-reports-list {
+#pending-reports {
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#pending-reports-list {
     list-style-type: none;
     padding: 0;
 }
 
-ul#pending-reports-list li {
+#pending-reports-list li {
     margin-bottom: 5px;
 }
 
-/* Estilos para la tabla responsiva */
-@media screen and (max-width: 600px) {
-    table {
-        overflow-x: auto;
-        display: block;
+@media screen and (max-width: 768px) {
+    .side-bar {
+        width: 100%;
+        height: auto;
+        position: static;
+        box-shadow: none;
+        background-color: #274d83;
+        display: flex;
+        justify-content: center;
+    }
+
+    .option {
+        margin: 20px;
+    }
+
+    .content {
+        margin-top: 0;
+        padding: 20px;
+    }
+
+    .table-container {
+        max-height: none;
+        overflow-y: visible;
     }
 }

@@ -18,38 +18,40 @@
         <div class="option"><a href="reports_by_publisher.html" class="option-link">Informes por publicador</a></div>
         <div class="option"><a href="monthly_reports.html" class="option-link">Totales</a></div>
     </aside>
-    <header>
-        <h1 id="page-title">Informes Mensuales</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Informes del Mes Anterior</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Publicador</th>
-                        <th>Publicaciones</th>
-                        <th>Videos</th>
-                        <th>Horas</th>
-                    </tr>
-                </thead>
-                <tbody id="reports-table-body">
-                    <!-- Aquí se llenará dinámicamente la tabla de informes -->
-                </tbody>
-            </table>
-        </section>
-        
-        <section>
-            <h2>Informes Pendientes</h2>
-            <ul id="pending-reports-list">
-                <!-- Aquí se llenará dinámicamente la lista de publicadores sin informes -->
-            </ul>
-        </section>
-    </main>
-    <script src="javascript/reports.js"></script>
-    <script src="javascript/footer.js"></script>
-    <script src="javascript/topbar.js"></script>
+    <div class="content">
+        <div class="container">
+            <h1 id="page-title">Informes Mensuales</h1>
+            <br>
+            <section>
+                <h2>Informes del Mes Anterior</h2>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Publicador</th>
+                                <th>Publicaciones</th>
+                                <th>Videos</th>
+                                <th>Horas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reports-table-body">
+                            <!-- Aquí se llenará dinámicamente la tabla de informes -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section id="pending-reports">
+                <h2>Informes Pendientes</h2>
+                <ul id="pending-reports-list">
+                    <!-- Aquí se llenará dinámicamente la lista de publicadores sin informes -->
+                </ul>
+            </section>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="javascript/footer.js"></script>
+    <script src="javascript/topbar.js"></script>
+    <script src="javascript/reports.js"></script>
 </body>
 </html>
