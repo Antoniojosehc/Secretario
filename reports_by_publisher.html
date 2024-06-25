@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Asistente para el secretario de la congregación">
+    <link rel="stylesheet" href="CSS/reports_by_publisher_layout.css">
+    <link rel="stylesheet" href="CSS/topbar_layout.css">
+    <link rel="stylesheet" href="CSS/footer_layout.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="icon" href="images/Secretario_logo.png">
+    <script type="text/javascript" src="javascript/reports_by_publisher.js"></script>
+    <title>Informes por publicador</title>
+</head>
+<body>
+    <div id="topbar-container"></div>  
+    <aside class="side-bar">
+        <<div class="option"><a href="publishers.html" class="option-link">Publicadores</a></div>
+        <div class="option"><a href="reports.html" class="option-link">Informes mes anterior</a></div>
+        <div class="option"><a href="monthly_reports.html" class="option-link">Totales</a></div>
+    </aside>
+    <section class="form">        
+        <form id="informeForm">
+            <h1>Seleccionar Publicador</h1>
+            <br>
+            <select id="publicador" name="publicador" class="field" required>
+                <!-- Opciones serán llenadas dinámicamente con JavaScript -->
+            </select>
+            <button type="button" class="button" id="btnVerInforme">Ver Informes</button>
+        </form>
+        <table id="informesTable" class="informes-table">
+            <thead>
+                <tr>
+                    <th>Año</th>
+                    <th>Mes</th>
+                    <th>Publicaciones</th>
+                    <th>Videos</th>
+                    <th>Horas</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los informes serán llenados dinámicamente con JavaScript -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Modal para actualizar informe -->
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Actualizar Informe</h2>
+          <form id="updateForm">
+            <input type="hidden" id="updateIdPublicador" />
+            <div class="form-group">
+              <label for="updateAnio">Año:</label>
+              <input type="text" id="updateAnio" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="updateMes">Mes:</label>
+              <input type="text" id="updateMes" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="updatePublicaciones">Publicaciones:</label>
+              <input type="text" id="updatePublicaciones" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="updateVideos">Videos:</label>
+              <input type="text" id="updateVideos" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="updateHoras">Horas:</label>
+              <input type="text" id="updateHoras" class="form-control">
+            </div>
+            <button type="button" id="btnUpdateInforme" class="btn btn-primary">Actualizar</button>
+          </form>
+        </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="javascript/footer.js"></script>
+  <script src="javascript/topbar.js"></script>
+</body>
+</html>

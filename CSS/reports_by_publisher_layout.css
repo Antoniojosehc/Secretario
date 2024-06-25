@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #CBDEF8;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#topbar-container {
+    width: 100%;
+    background-color: #f8f9fa;
+    height: 50px;
+}
+
+.side-bar {
+    background-color: #274d83;    
+    width: 300px;
+    height: 100vh;
+    position: absolute;
+    z-index: 50;
+    top: 50px;
+    left: 0;
+    display: inline-block;
+    box-shadow: 2px 2px 5px black;
+}
+
+.option {
+    margin: 60px;
+}
+
+.option-link {    
+    font-size: 20px;        
+    color: white;
+    text-decoration: none;
+}
+
+.form {
+    flex-grow: 1; /* Ocupa todo el espacio restante */
+    width: 90%; /* Reducir el ancho de la tarjeta */
+    max-width: 900px; /* Establecer un ancho máximo para evitar que la tarjeta se estire demasiado */
+    margin: auto;
+    margin-top: 70px;
+    padding: 30px 40px;
+    overflow-x: auto; /* Agregar desplazamiento horizontal para la tabla */
+}
+
+.field {
+    width: 100%;
+    margin: 0 auto 10px;
+    padding: 7px;
+    border: 1px solid #d4d2cd;
+}
+
+h4 {
+    margin-bottom: 10px;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    background-color: #274d83;
+    color: #fff;
+    border: none;
+    margin: 10px auto;
+}
+
+.button:hover {
+    background-color: #3b65a0;
+}
+
+.link {
+    text-decoration: none;
+    color: #4A6DA7;
+}
+
+/* Table Styles */
+.informes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.informes-table th, .informes-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.informes-table th {
+    background-color: #274d83;
+    color: white;
+}
+
+.informes-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.informes-table tr:hover {
+    background-color: #ddd;
+}
+
+.informes-table button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.informes-table button:hover {
+    background-color: #ddd;
+}
+
+.informes-table .update-button {
+    background-color: #007bff;
+    color: white;
+    margin-right: 5px;
+}
+
+.informes-table .delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+  
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+  
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}  

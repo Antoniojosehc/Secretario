@@ -1,156 +1,87 @@
-window.addEventListener("load", function() {
-    cargarPublicadores();
-    document.getElementById("btnVerInforme").addEventListener("click", verInformes);
-    document.getElementById("btnUpdateInforme").addEventListener("click", actualizarInforme);
+document.addEventListener('DOMContentLoaded', function () {
+    const titleElement = document.getElementById('page-title');
+    const tableBody = document.getElementById('reports-table-body');
+    const pendingReportsList = document.getElementById('pending-reports-list');
 
-    // Configurar modal
-    const modal = document.getElementById("updateModal");
-    const span = document.getElementsByClassName("close")[0];
-    span.onclick = function() {
-        modal.style.display = "none";
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    // Calcula el mes y año anterior
+    const previousMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+    const previousYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
+    const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const previousMonthName = monthNames[previousMonth];
+
+    // Actualiza el título de la página
+    titleElement.textContent = `Informes de ${previousMonthName} de ${previousYear}`;
+
+    // URLs de la API
+    const reportsURL = 'http://localhost:8080/informeMensual';
+    const publishersURL = 'http://localhost:8080/publicador';
+
+    // Función para obtener datos de la API
+    async function fetchData(url) {
+        const response = await fetch(url);
+        return response.json();
     }
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+
+    // Función para obtener el nombre del publicador por ID
+    async function getPublisherNameById(id, publishers) {
+        const publisher = publishers.find(p => p.id === id);
+        return publisher ? publisher.fullName : 'Desconocido';
+    }
+
+    // Función para cargar los informes
+    async function loadReports() {
+        try {
+            const reports = await fetchData(reportsURL);
+            const publishers = await fetchData(publishersURL);
+
+            // Filtra los informes del mes anterior
+            const filteredReports = reports.filter(report => {
+                const reportMonth = monthNames.indexOf(report.mes);
+                const reportYear = report.anio;
+
+                return reportMonth === previousMonth && reportYear === previousYear;
+            });
+
+            // Llena la tabla con los informes filtrados
+            for (const report of filteredReports) {
+                const publisherName = await getPublisherNameById(report.idPublicador, publishers);
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${publisherName}</td>
+                    <td>${report.publicaciones}</td>
+                    <td>${report.videos}</td>
+                    <td>${report.horas}</td>
+                `;
+                tableBody.appendChild(row);
+            }
+
+            // Obtener todos los publicadores
+            const allPublishers = await fetchData(publishersURL);
+
+            // Filtrar publicadores que no tienen informes para el mes anterior
+            const publishersWithoutReports = allPublishers.filter(publisher => {
+                const hasReport = filteredReports.some(report => report.idPublicador === publisher.id);
+                return !hasReport;
+            });
+
+            // Mostrar los publicadores sin informes en la sección de informes pendientes
+            publishersWithoutReports.forEach(publisher => {
+                const listItem = document.createElement('li');
+                listItem.textContent = publisher.fullName;
+                pendingReportsList.appendChild(listItem);
+            });
+
+        } catch (error) {
+            console.error('Error al cargar los informes:', error);
         }
     }
+
+    // Cargar los informes al cargar la página
+    loadReports();
 });
-
-const urlApiPublicador = "http://localhost:8080/publicador";
-const urlApiInforme = "http://localhost:8080/informeMensual";
-
-function cargarPublicadores() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", urlApiPublicador);
-    xhr.send();
-    xhr.responseType = "json";
-    xhr.onload = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            const data = xhr.response;
-            const publicadorSelect = document.getElementById("publicador");
-            data.forEach(publicador => {
-                const option = document.createElement("option");
-                option.value = publicador.id;
-                option.textContent = publicador.fullName;
-                publicadorSelect.appendChild(option);
-            });
-        } else {
-            alert("Error al cargar los publicadores");
-        }
-    };
-}
-
-function verInformes() {
-    const publicadorId = document.getElementById("publicador").value;
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `${urlApiInforme}/publicador/${publicadorId}`);
-    xhr.send();
-    xhr.responseType = "json";
-    xhr.onload = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            const data = xhr.response;
-            const informesTable = document.getElementById("informesTable").getElementsByTagName("tbody")[0];
-            informesTable.innerHTML = "";
-            data.forEach(informe => {
-                const row = informesTable.insertRow();
-                row.insertCell(0).textContent = informe.anio;
-                row.insertCell(1).textContent = informe.mes;
-                row.insertCell(2).textContent = informe.publicaciones;
-                row.insertCell(3).textContent = informe.videos;
-                row.insertCell(4).textContent = informe.horas;
-                const actionsCell = row.insertCell(5);
-                const updateButton = document.createElement("button");
-                updateButton.textContent = "Actualizar";
-                updateButton.onclick = () => openUpdateModal(informe);
-                const deleteButton = document.createElement("button");
-                deleteButton.textContent = "Eliminar";
-                deleteButton.onclick = () => eliminarInforme(informe.idPublicador, informe.anio, informe.mes);  // <- Asegúrate de pasar los valores correctos aquí
-                actionsCell.appendChild(updateButton);
-                actionsCell.appendChild(deleteButton);
-            });
-        } else {
-            alert("Error al cargar los informes");
-        }
-    };
-}
-
-
-function openUpdateModal(informe) {
-    const modal = document.getElementById("updateModal");
-    document.getElementById("updateIdPublicador").value = informe.idPublicador;
-    document.getElementById("updateAnio").value = informe.anio;
-    document.getElementById("updateMes").value = informe.mes;
-    document.getElementById("updatePublicaciones").value = informe.publicaciones;
-    document.getElementById("updateVideos").value = informe.videos;
-    document.getElementById("updateHoras").value = informe.horas;
-    modal.style.display = "block";
-}
-
-
-
-function actualizarInforme() {
-    const idPublicador = document.getElementById("updateIdPublicador").value;
-    const anio = document.getElementById("updateAnio").value;
-    const mes = document.getElementById("updateMes").value;
-    const publicaciones = document.getElementById("updatePublicaciones").value;
-    const videos = document.getElementById("updateVideos").value;
-    const horas = document.getElementById("updateHoras").value;
-
-    const informeData = {
-        anio: anio,
-        mes: mes,
-        publicaciones: publicaciones,
-        videos: videos,
-        horas: horas,
-        idPublicador: idPublicador  // Añadir este campo al cuerpo de la solicitud
-    };
-
-    const requestOptions = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(informeData)
-    };
-
-    fetch(`${urlApiInforme}/${idPublicador}/${anio}/${mes}`, requestOptions)
-        .then(response => {
-            if (response.ok) {
-                alert("Informe actualizado exitosamente");
-                document.getElementById("updateModal").style.display = "none";
-                verInformes(); // Recargar informes
-            } else {
-                response.json().then(data => {
-                    alert(data.message || "Error al actualizar el informe");
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error al actualizar el informe:', error);
-            alert("Error al actualizar el informe");
-        });
-}
-
-
-function eliminarInforme(idPublicador, anio, mes) {
-    if (!confirm("¿Estás seguro de que deseas eliminar este informe?")) return;
-
-    const requestOptions = {
-        method: 'DELETE'
-    };
-
-    fetch(`${urlApiInforme}/${idPublicador}/${anio}/${mes}`, requestOptions)
-        .then(response => {
-            if (response.ok) {
-                alert("Informe eliminado exitosamente");
-                verInformes(); // Recargar informes
-            } else {
-                response.json().then(data => {
-                    alert(data.message || "Error al eliminar el informe");
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error al eliminar el informe:', error);
-            alert("Error al eliminar el informe");
-        });
-}
-
