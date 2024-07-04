@@ -1,32 +1,45 @@
-// Añadir un evento que se dispara cuando la ventana ha cargado completamente
-window.addEventListener("load", onloadwindow)
+window.addEventListener("load", onloadwindow);
+var avatarBase64 = null;
 var indexUser = null;
 var urlApiUser = "http://localhost:8080/publicador";
 
-// Función que se ejecuta cuando la ventana ha cargado
 function onloadwindow(e) {
+    console.log("Window loaded");
+
     var btnSubmit = document.getElementById("btnSubmit");
-    btnSubmit.addEventListener("click", clickFrmSubmit);
-
     var btnClearLocalStorage = document.getElementById("deleteData");
-    btnClearLocalStorage.addEventListener("click", deleteLocalStorageData);
 
-    var arrayUsers = loadData();
+    if (btnSubmit) {
+        console.log("Found btnSubmit");
+        btnSubmit.addEventListener("click", clickFrmSubmit);
+    } else {
+        console.log("btnSubmit not found");
+    }
+
+    if (btnClearLocalStorage) {
+        console.log("Found btnClearLocalStorage");
+        btnClearLocalStorage.addEventListener("click", deleteLocalStorageData);
+    } else {
+        console.log("btnClearLocalStorage not found");
+    }
+
+    loadData();
 }
 
 function deleteLocalStorageData() {
-    if (confirm("Quiere eliminar el localStorage?")) {
+    if (confirm("¿Quiere eliminar el localStorage?")) {
         localStorage.clear();
-        //location.reload();
-        var arrayUsers = loadData();
-        printTable(arrayUsers);
+        loadData();
     }
-
 }
 
-// Función para validar los campos obligatorios del formulario
 function validarForm() {
+    console.log("Validating form");
     var isValid = true;
+    var nombres = document.getElementById("nombres");
+    var fechaNacimiento = document.getElementById("fechaNacimiento");
+    var hombre = document.getElementById("hombre");
+    var mujer = document.getElementById("mujer");
 
     nombres.classList.remove("input-error");
     if (nombres.value === "") {
@@ -40,24 +53,22 @@ function validarForm() {
         isValid = false;
     }
 
-    var hombre = document.getElementById("hombre");
-    var mujer = document.getElementById("mujer");
-
     hombre.classList.remove("input-error");
     mujer.classList.remove("input-error");
     if (!hombre.checked && !mujer.checked) {
         hombre.classList.add("input-error");
         mujer.classList.add("input-error");
         isValid = false;
-        
     }
 
+    console.log("Form validation result:", isValid);
     return isValid;
-
 }
 
-// Función que se ejecuta al enviar el formulario
 function clickFrmSubmit(e) {
+    e.preventDefault();
+    console.log("Submit button clicked");
+
     if (!validarForm()) {
         alert("Hay campos faltantes por rellenar");
         return;
@@ -65,218 +76,263 @@ function clickFrmSubmit(e) {
 
     var txtNombres = document.getElementById("nombres");
     var nombres = txtNombres.value;
-    //-----
     var txtFechaNacimiento = document.getElementById("fechaNacimiento");
     var fechaNacimiento = txtFechaNacimiento.value;
-    //-----
     var txtFechaBautismo = document.getElementById("fechaBautismo");
     var fechaBautismo = txtFechaBautismo.value;
-    //-----
     var txtNotas = document.getElementById("notas");
     var notas = txtNotas.value;
-    
-    var arrayUsers = loadData();
+    var inpAvatar = document.getElementById("avatar");
 
-//-----
-    //Crear objeto de usuario con los datos del formulario 
     var objUsuario = {
         "fullName": nombres,
-        "sex": hombre.checked ? "Hombre" : "Mujer",
+        "sex": document.getElementById("hombre").checked ? "Hombre" : "Mujer",
         "bornDate": fechaNacimiento,
         "baptismDate": fechaBautismo,
-        "notes": notas
+        "notes": notas,
+        "avatar": ""
     };
 
-    // Crear o actualizar los datos del usuario según el índice de usuario
-    if(indexUser===null) {
-        createData(objUsuario);
-    } else {
-        updateData(objUsuario, indexUser);
-    } 
-
-}
-
-// Función para calcular la edad a partir de la fecha de nacimiento
-function calcularEdad(fecha) {
-    var dateNacimiento = new Date(fecha);
-    var now = new Date();
-    var diffAnios = now - dateNacimiento; //en milisegundos
-    var equMiliAnio = 31536000*1000;
-    var aniosConDecimal = diffAnios / equMiliAnio;
-    var edad = Math.ceil(aniosConDecimal);
-    return edad;
-}
-
-// Función para imprimir la tabla de usuarios
-function printTable(data) {
-    var html = "";
-    for (var i = 0; i < data.length; i++) {
-        html += "<tr>"
-        html += "<th scope='row'>" + (i + 1) + "</th>"
-        html += "<td>" + data[i].fullName + "</td>";
-        html += "<td>" + formatDate(data[i].bornDate) + "</td>";
-        html += "<td>" + calcularEdad(data[i].bornDate) + "</td>";
-        html += "<td>" + (data[i].baptismDate ? formatDate(data[i].baptismDate) : "") + "</td>";
-        html += "<td>" + data[i].sex + "</td>";
-        html += "<td>" + data[i].notes + "</td>";
-        html += "<td>";
-        html += "<div data-id='" + data[i].id + "' class='eliminar'>Eliminar</div>";
-        html += "<div data-id='" + data[i].id + "' class='editar'>Editar</div>"
-        html += "</td>";
-        html += "</tr>";
-    }
-    bodyList.innerHTML = html;
-
-    // Añadir eventos de clic a los botones de eliminar
-    var btnsEliminar = document.getElementsByClassName("eliminar");
-    for(var i = 0; i < btnsEliminar.length; i++) {
-        var btnEliminar = btnsEliminar[i];
-        btnEliminar.addEventListener('click', function(e) {
-            eliminar(e.target.getAttribute("data-id"));
-        });
-    }
-
-    // Añadir eventos de clic a los botones de editar
-    var btnsEditar = document.getElementsByClassName("editar");
-    for(var i = 0; i < btnsEditar.length; i++) {
-        var btnEditar = btnsEditar[i];
-        btnEditar.addEventListener('click', function(e) {
-            editar(e.target.getAttribute("data-id"));
-        });
-    }
-}
-
-// Función para editar un usuario por su ID
-function editar(i) {
-    loadDataById(i);
-    
-}
-
-// Función para formatear una fecha en formato legible
-function formatDate(dateString) {
-    return dateString.split('T')[0];
-}
-
-// Función para actualizar los datos de un usuario
-function updateData(request, id) {
-    request = JSON.stringify(request);
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", urlApiUser + "/" + id);
-    xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-    xhr.send(request);
-    //xhr.responseType = "json";
-    xhr.onload = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            indexUser = null;
-            const data = xhr.response;
-            console.log(data);
-            loadData();
-            resetData.click();
-        } else {
-            alert("Error al ejecutar la transacción, el servidor no puede procesar la solicitud");
-            console.log('Error: ${xhr.status}');
-        }
-    };
-}
-
-// Función para eliminar un usuario por su ID
-function eliminar(i) {
-    if(confirm("¿Está seguro que desea eliminar el publicador?")) {
-        deleteData(i);
-    }
-}
-
-function loadDataById(id) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", urlApiUser + "/" + id);
-    xhr.send();
-    xhr.responseType = "json";
-    xhr.onload = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            const data = xhr.response;
-            console.log(data);
-            resetData.click();
-            nombres.value = data.fullName;            
-
-            var formattedBornDate = formatDate(data.bornDate);
-            fechaNacimiento.value = formattedBornDate;
-
-            // Procesar fecha de bautismo
-            if (data.baptismDate) {
-                var formattedBaptismDate = formatDate(data.baptismDate);
-                fechaBautismo.value = formattedBaptismDate;
+    if (inpAvatar.files.length > 0) {
+        console.log("Uploading avatar");
+        upload(inpAvatar.files[0], function(fileName) {
+            objUsuario.avatar = fileName;
+            if (indexUser === null) {
+                createData(objUsuario);
             } else {
-                fechaBautismo.value = ""; // Limpiar el campo si no hay fecha
+                updateData(objUsuario, indexUser);
             }
-
-            notas.value = data.notes;
-
-            //Cargar el campo de Sexo
-            if (data.sex === "Hombre") {
-                document.getElementById("hombre").checked = true;
-            } else if (data.sex === "Mujer") {
-                document.getElementById("mujer").checked = true;
-            }
-
-            indexUser = id;
-            
+        });
+    } else {
+        console.log("No avatar to upload");
+        if (indexUser === null) {
+            createData(objUsuario);
         } else {
-            alert("Error al ejecutar la transacción, el servidor no puede procesar la solicitud");
-            console.log('Error: ${xhr.status}');
+            updateData(objUsuario, indexUser);
         }
-    };
+    }
 }
 
-// Función para crear un nuevo usuario
+function upload(file, callback) {
+    var formData = new FormData();
+    formData.append("file", file);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:8080/file/upload", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                callback(file.name);
+            } else {
+                console.error("File upload failed. Status:", xhr.status);
+                alert("Error al cargar el archivo. Estado: " + xhr.status);
+            }
+        }
+    };
+    xhr.send(formData);
+}
+
 function createData(request) {
-    request = JSON.stringify(request);
+    console.log("Creating data", request);
     const xhr = new XMLHttpRequest();
     xhr.open("POST", urlApiUser);
     xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-    xhr.send(request);
-    //xhr.responseType = "json";
     xhr.onload = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            const data = xhr.response;
-            console.log(data);
             loadData();
-            resetData.click();
+            document.getElementById("resetData").click();
         } else {
             alert("Error al ejecutar la transacción, el servidor no puede procesar la solicitud");
-            console.log('Error: ${xhr.status}');
+            console.log("Error:", xhr.status);
         }
     };
+    xhr.send(JSON.stringify(request));
 }
 
-function loadData() {
+function updateData(request, id) {
+    console.log("Updating data", request, id);
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", urlApiUser);
-    xhr.send();
-    xhr.responseType = "json";
+    xhr.open("PUT", `${urlApiUser}/${id}`);
+    xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
     xhr.onload = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            const data = xhr.response;
-            console.log(data);
-            printTable(data);
+            indexUser = null;
+            loadData();
+            document.getElementById("resetData").click();
         } else {
             alert("Error al ejecutar la transacción, el servidor no puede procesar la solicitud");
-            console.log('Error: ${xhr.status}');
+            console.log("Error:", xhr.status);
         }
     };
+    xhr.send(JSON.stringify(request));
+}
+
+function editData(user) {
+    console.log("Editing user:", user);
+    var txtNombres = document.getElementById("nombres");
+    var txtFechaNacimiento = document.getElementById("fechaNacimiento");
+    var txtFechaBautismo = document.getElementById("fechaBautismo");
+    var txtNotas = document.getElementById("notas");
+    var hombre = document.getElementById("hombre");
+    var mujer = document.getElementById("mujer");
+
+    txtNombres.value = user.fullName;
+    txtFechaNacimiento.value = user.bornDate;
+    txtFechaBautismo.value = user.baptismDate;
+    txtNotas.value = user.notes;
+    if (user.sex === "Hombre") {
+        hombre.checked = true;
+    } else {
+        mujer.checked = true;
+    }
+
+    indexUser = user.id;
 }
 
 function deleteData(id) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("DELETE", urlApiUser + "/" + id);
-    xhr.send();
-    //xhr.responseType = "json";
-    xhr.onload = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            const data = xhr.response;
+    if (confirm("¿Está seguro de eliminar este publicador?")) {
+        fetch(`${urlApiUser}/${id}`, {
+            method: "DELETE"
+        })
+        .then(res => {
+            if (res.status === 200) {
+                return res.text();  // Handle response as plain text
+            } else {
+                throw new Error("Error al eliminar publicador");
+            }
+        })
+        .then(data => {
+            console.log("User deleted:", data);
+            alert("Publicador eliminado con éxito!");
             loadData();
-        } else {
-            alert("Error al ejecutar la transacción, el servidor no puede procesar la solicitud");
-            console.log('Error: ${xhr.status}');
-        }
-    };
+        })
+        .catch(err => {
+            console.error("Error deleting user:", err);
+            alert("Error al eliminar publicador");
+        });
+    }
+}
+
+function loadData() {
+    console.log("Loading data");
+
+    fetch(urlApiUser, {
+        method: "GET"
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Data loaded:", data);
+        var bodyList = document.getElementById("bodyList");
+        bodyList.innerHTML = "";
+
+        data.forEach((user, index) => {
+            var row = document.createElement("tr");
+
+            var cellIndex = document.createElement("th");
+            cellIndex.scope = "row";
+            cellIndex.textContent = index + 1;
+            row.appendChild(cellIndex);
+
+            var cellFullName = document.createElement("td");
+            cellFullName.textContent = user.fullName;
+            row.appendChild(cellFullName);
+
+            var cellBornDate = document.createElement("td");
+            cellBornDate.textContent = user.bornDate;
+            row.appendChild(cellBornDate);
+
+            var cellAge = document.createElement("td");
+            var age = calculateAge(new Date(user.bornDate));
+            cellAge.textContent = age;
+            row.appendChild(cellAge);
+
+            var cellBaptismDate = document.createElement("td");
+            cellBaptismDate.textContent = user.baptismDate;
+            row.appendChild(cellBaptismDate);
+
+            var cellSex = document.createElement("td");
+            cellSex.textContent = user.sex;
+            row.appendChild(cellSex);
+
+            var cellNotes = document.createElement("td");
+            cellNotes.textContent = user.notes;
+            row.appendChild(cellNotes);
+
+            var cellAvatar = document.createElement("td");
+            if (user.avatar) {
+                var img = document.createElement("img");
+                img.src = `${urlApiUser}/images/${user.avatar}`;
+                img.alt = "Avatar";
+                img.width = 50;
+                img.height = 50;
+                cellAvatar.appendChild(img);
+            }
+            row.appendChild(cellAvatar);
+
+            var cellActions = document.createElement("td");
+            var btnEdit = document.createElement("button");
+            btnEdit.textContent = "Editar";
+            btnEdit.classList.add("btn", "btn-primary");
+            btnEdit.onclick = function() {
+                editData(user);
+            };
+            cellActions.appendChild(btnEdit);
+
+            var btnDelete = document.createElement("button");
+            btnDelete.textContent = "Eliminar";
+            btnDelete.classList.add("btn", "btn-danger");
+            btnDelete.onclick = function() {
+                deleteData(user.id);
+            };
+            cellActions.appendChild(btnDelete);
+
+            row.appendChild(cellActions);
+
+            bodyList.appendChild(row);
+        });
+    })
+    .catch(err => {
+        console.error("Error loading data:", err);
+        alert("Error al cargar datos");
+    });
+}
+
+function calculateAge(bornDate) {
+    var ageDifMs = Date.now() - bornDate.getTime();
+    var ageDate = new Date(ageDifMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+function editData(user, index) {
+    console.log("Editing user:", user);
+    var txtNombres = document.getElementById("nombres");
+    var txtFechaNacimiento = document.getElementById("fechaNacimiento");
+    var txtFechaBautismo = document.getElementById("fechaBautismo");
+    var txtNotas = document.getElementById("notas");
+    var hombre = document.getElementById("hombre");
+    var mujer = document.getElementById("mujer");
+
+    txtNombres.value = user.fullName;
+    txtFechaNacimiento.value = user.bornDate;
+    txtFechaBautismo.value = user.baptismDate;
+    txtNotas.value = user.notes;
+    if (user.sex === "Hombre") {
+        hombre.checked = true;
+    } else {
+        mujer.checked = true;
+    }
+
+    indexUser = user.id;
+}
+
+function updateLocalStorage() {
+    var jsonData = JSON.stringify(users);
+    localStorage.setItem("users", jsonData);
+}
+
+function loadDataFromLocalStorage() {
+    var jsonData = localStorage.getItem("users");
+    if (jsonData) {
+        users = JSON.parse(jsonData);
+    }
 }

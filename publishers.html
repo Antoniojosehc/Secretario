@@ -23,7 +23,7 @@
     </aside>
     <div class="content">
         <div class="container">
-            <form action="#">
+            <form id="publisherForm">
                 <h1>Publicadores</h1>
                 <br>
                 <div class="row">
@@ -50,9 +50,13 @@
                             <label class="form-check-label" for="mujer">Mujer</label>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-6">
                         <label for="notas" class="form-label">Notas</label>
                         <input type="text" class="form-control" id="notas">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="avatar" class="form-label">Avatar</label>
+                        <input type="file" class="form-control" id="avatar" accept="image/*">
                     </div>
                 </div>
                 <br>
@@ -60,7 +64,6 @@
                     <div class="col-12">
                         <button type="button" id="btnSubmit" class="btn custom-btn">Agregar</button>
                         <button type="reset" id="resetData" class="btn custom-btn">Limpiar</button>
-                        <button type="button" id="deleteData" class="btn custom-btn">Borrar todo</button>
                     </div>
                 </div>
             </form>
@@ -76,6 +79,8 @@
                             <th scope="col">Fecha de bautismo</th>
                             <th scope="col">Sexo</th>
                             <th scope="col">Notas</th>
+                            <th scope="col">Avatar</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="bodyList">
