@@ -6,7 +6,9 @@ const urlApiInforme = "http://localhost:8080/informeMensual";
 // Función que se ejecuta cuando la ventana ha cargado
 function onLoadWindow() {
     loadPublicadores();
-    loadAnioMesOptions();
+    
+    const btnValidar = document.getElementById("btnValidar");
+    btnValidar.addEventListener("click", validarClave);
     
     const btnEnviarInforme = document.getElementById("btnEnviarInforme");
     btnEnviarInforme.addEventListener("click", enviarInforme);
@@ -26,6 +28,30 @@ function loadPublicadores() {
             });
         })
         .catch(error => console.error('Error al cargar publicadores:', error));
+}
+
+// Validar la palabra clave
+function validarClave() {
+    const publicadorId = document.getElementById("publicador").value;
+    const palabraClave = document.getElementById("palabraClave").value;
+
+    fetch(`${urlApiPublicador}/${publicadorId}`)
+        .then(response => response.json())
+        .then(publicador => {
+            if (publicador.keyWord === palabraClave) {
+                loadAnioMesOptions();
+                var myModal = new bootstrap.Modal(document.getElementById('formularioModal'), {
+                    keyboard: false
+                });
+                myModal.show();
+            } else {
+                alert("Palabra clave incorrecta. Intente de nuevo. Si no recuerda la palabra clave, comuníquese con el Secretario.");
+            }
+        })
+        .catch(error => {
+            console.error('Error al validar la clave:', error);
+            alert("Error al validar la clave");
+        });
 }
 
 // Cargar opciones de año y mes
@@ -76,7 +102,6 @@ function enviarInforme() {
     const mesNumero = document.getElementById("mes").value;
     const mesNombre = obtenerNombreMes(mesNumero); // Obtener el nombre del mes
     const publicaciones = document.getElementById("publicaciones").value;
-    const videos = document.getElementById("videos").value;
     const horas = document.getElementById("horas").value;
 
     const informeData = {
@@ -84,7 +109,6 @@ function enviarInforme() {
         anio: anio,
         mes: mesNombre, // Utilizar el nombre del mes
         publicaciones: publicaciones,
-        videos: videos,
         horas: horas
     };
 

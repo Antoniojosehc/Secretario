@@ -188,8 +188,8 @@ function editData(user) {
     var mujer = document.getElementById("mujer");
 
     txtNombres.value = user.fullName;
-    txtFechaNacimiento.value = user.bornDate;
-    txtFechaBautismo.value = user.baptismDate;
+    txtFechaNacimiento.value = formatDate(user.bornDate);
+    txtFechaBautismo.value = formatDate(user.baptismDate);
     txtNotas.value = user.notes;
     txtClave.value = user.keyWord;
     if (user.sex === "Hombre") {
@@ -199,6 +199,18 @@ function editData(user) {
     }
 
     indexUser = user.id;
+}
+
+function formatDate(dateString) {
+    if (!dateString) return '';
+    // Crear un objeto Date a partir de la cadena de fecha
+    const date = new Date(dateString);
+    // Obtener las partes de la fecha (año, mes, día)
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses empiezan desde 0
+    const day = String(date.getDate()).padStart(2, '0');
+    // Formatear la fecha como "yyyy-MM-dd"
+    return `${year}-${month}-${day}`;
 }
 
 function deleteData(id) {
@@ -223,14 +235,6 @@ function deleteData(id) {
             alert("Error al eliminar publicador");
         });
     }
-}
-
-function formatDate(dateString) {
-    if (!dateString) return '';
-
-    // Obtener solo la parte de la fecha (sin la hora)
-    const dateParts = dateString.split('T');
-    return dateParts[0]; // Devuelve solo la fecha
 }
 
 function loadData() {
@@ -325,30 +329,6 @@ function calculateAge(bornDate) {
     var ageDifMs = Date.now() - bornDate.getTime();
     var ageDate = new Date(ageDifMs);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
-}
-
-function editData(user, index) {
-    console.log("Editing user:", user);
-    var txtNombres = document.getElementById("nombres");
-    var txtFechaNacimiento = document.getElementById("fechaNacimiento");
-    var txtFechaBautismo = document.getElementById("fechaBautismo");
-    var txtNotas = document.getElementById("notas");
-    var txtClave = document.getElementById("clave");
-    var hombre = document.getElementById("hombre");
-    var mujer = document.getElementById("mujer");
-
-    txtNombres.value = user.fullName;
-    txtFechaNacimiento.value = user.bornDate;
-    txtFechaBautismo.value = user.baptismDate;
-    txtNotas.value = user.notes;
-    txtClave.value = user.keyWord;
-    if (user.sex === "Hombre") {
-        hombre.checked = true;
-    } else {
-        mujer.checked = true;
-    }
-
-    indexUser = user.id;
 }
 
 function updateLocalStorage() {
