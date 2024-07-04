@@ -38,6 +38,7 @@ function validarForm() {
     var isValid = true;
     var nombres = document.getElementById("nombres");
     var fechaNacimiento = document.getElementById("fechaNacimiento");
+    var clave = document.getElementById("clave");
     var hombre = document.getElementById("hombre");
     var mujer = document.getElementById("mujer");
 
@@ -50,6 +51,12 @@ function validarForm() {
     fechaNacimiento.classList.remove("input-error");
     if (fechaNacimiento.value === "") {
         fechaNacimiento.classList.add("input-error");
+        isValid = false;
+    }
+
+    clave.classList.remove("input-error");
+    if (clave.value === "") {
+        clave.classList.add("input-error");
         isValid = false;
     }
 
@@ -82,6 +89,8 @@ function clickFrmSubmit(e) {
     var fechaBautismo = txtFechaBautismo.value;
     var txtNotas = document.getElementById("notas");
     var notas = txtNotas.value;
+    var txtClave = document.getElementById("clave");
+    var clave = txtClave.value;
     var inpAvatar = document.getElementById("avatar");
 
     var objUsuario = {
@@ -90,6 +99,7 @@ function clickFrmSubmit(e) {
         "bornDate": fechaNacimiento,
         "baptismDate": fechaBautismo,
         "notes": notas,
+        "keyWord": clave,
         "avatar": ""
     };
 
@@ -173,6 +183,7 @@ function editData(user) {
     var txtFechaNacimiento = document.getElementById("fechaNacimiento");
     var txtFechaBautismo = document.getElementById("fechaBautismo");
     var txtNotas = document.getElementById("notas");
+    var txtClave = document.getElementById("clave");
     var hombre = document.getElementById("hombre");
     var mujer = document.getElementById("mujer");
 
@@ -180,6 +191,7 @@ function editData(user) {
     txtFechaNacimiento.value = user.bornDate;
     txtFechaBautismo.value = user.baptismDate;
     txtNotas.value = user.notes;
+    txtClave.value = user.keyWord;
     if (user.sex === "Hombre") {
         hombre.checked = true;
     } else {
@@ -196,7 +208,7 @@ function deleteData(id) {
         })
         .then(res => {
             if (res.status === 200) {
-                return res.text();  // Handle response as plain text
+                return res.text();
             } else {
                 throw new Error("Error al eliminar publicador");
             }
@@ -211,6 +223,14 @@ function deleteData(id) {
             alert("Error al eliminar publicador");
         });
     }
+}
+
+function formatDate(dateString) {
+    if (!dateString) return '';
+
+    // Obtener solo la parte de la fecha (sin la hora)
+    const dateParts = dateString.split('T');
+    return dateParts[0]; // Devuelve solo la fecha
 }
 
 function loadData() {
@@ -238,7 +258,7 @@ function loadData() {
             row.appendChild(cellFullName);
 
             var cellBornDate = document.createElement("td");
-            cellBornDate.textContent = user.bornDate;
+            cellBornDate.textContent = formatDate(user.bornDate); // Formatear la fecha de nacimiento
             row.appendChild(cellBornDate);
 
             var cellAge = document.createElement("td");
@@ -247,7 +267,7 @@ function loadData() {
             row.appendChild(cellAge);
 
             var cellBaptismDate = document.createElement("td");
-            cellBaptismDate.textContent = user.baptismDate;
+            cellBaptismDate.textContent = formatDate(user.baptismDate); // Formatear la fecha de bautismo
             row.appendChild(cellBaptismDate);
 
             var cellSex = document.createElement("td");
@@ -258,10 +278,14 @@ function loadData() {
             cellNotes.textContent = user.notes;
             row.appendChild(cellNotes);
 
+            var cellClave = document.createElement("td");
+            cellClave.textContent = user.keyWord;
+            row.appendChild(cellClave);
+
             var cellAvatar = document.createElement("td");
             if (user.avatar) {
                 var img = document.createElement("img");
-                img.src = `${urlApiUser}/images/${user.avatar}`;
+                img.src = `http://localhost:8080/file/upload/${user.avatar}`;
                 img.alt = "Avatar";
                 img.width = 50;
                 img.height = 50;
@@ -309,6 +333,7 @@ function editData(user, index) {
     var txtFechaNacimiento = document.getElementById("fechaNacimiento");
     var txtFechaBautismo = document.getElementById("fechaBautismo");
     var txtNotas = document.getElementById("notas");
+    var txtClave = document.getElementById("clave");
     var hombre = document.getElementById("hombre");
     var mujer = document.getElementById("mujer");
 
@@ -316,6 +341,7 @@ function editData(user, index) {
     txtFechaNacimiento.value = user.bornDate;
     txtFechaBautismo.value = user.baptismDate;
     txtNotas.value = user.notes;
+    txtClave.value = user.keyWord;
     if (user.sex === "Hombre") {
         hombre.checked = true;
     } else {
